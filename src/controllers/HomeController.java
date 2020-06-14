@@ -36,13 +36,29 @@ public class HomeController {
     }
 
     private void generateTabByRole() {
-        String role = "cashier";
+        String role = "owner";
         switch (role) {
-            case "cashier" -> {
+            case "cashier": {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                break;
             }
-            default -> {
+            case "waiter": {
+                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                break;
+            }
+            case "chef": {
+                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                break;
+            }
+            case "owner": {
+                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                break;
+            }
+            default: {
             }
         }
     }

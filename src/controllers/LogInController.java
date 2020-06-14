@@ -5,8 +5,12 @@
  */
 package controllers;
 
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import models.Account;
+import services.AccountService;
+import utils.CommonUltilities;
 import views.LogInView;
 
 /**
@@ -17,8 +21,10 @@ public class LogInController {
 
     private LogInView logInView;
     private JFrame logInFrame;
+    private AccountService accountService;
 
     public LogInController() {
+        accountService = new AccountService();
         this.logInView = new LogInView();
 
         logInView.getBtnLogIn().addActionListener(e -> logInHandler());
@@ -27,7 +33,7 @@ public class LogInController {
         jframe.setSize(600, 400);
         jframe.add(logInView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
+
         logInFrame = jframe;
     }
 
@@ -38,13 +44,18 @@ public class LogInController {
     private void logInHandler() {
         String email = logInView.getTxtEmail().getText();
         String password = logInView.getTxtPassword().getText();
+        logInView.getLblMessage().setText("");
 
-        logInView.getLblResult().setText(email + " " + password);
-        logInFrame.setVisible(false);
+        ArrayList<Account> accounts = accountService.getAll();
+        for (Account account : accounts) {
+            if (account.getEmail().equals(email) && account.getPassword().equals(CommonUltilities.generateSHA1(password))) {
+                logInFrame.setVisible(false);
+                HomeController homeController = new HomeController();
+                homeController.initController();
+                return;
+            }
+        }
         
-        HomeController homeController = new HomeController();
-        homeController.initController();
-
+        logInView.getLblMessage().setText("Wrong email or password");
     }
-
 }
