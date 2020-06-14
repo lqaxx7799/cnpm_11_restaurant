@@ -116,7 +116,7 @@ public class AccountService {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "update accounts set email = ?, password = ?, user_name = ?, address = ?, gender = ?, "
-                    + "role_id = ?, start_work_date = ?, is_working = ?"
+                    + "date_of_birth = ?, role_id = ?, start_work_date = ?, is_working = ?"
                     + " where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, account.getEmail());
@@ -129,6 +129,25 @@ public class AccountService {
             stmt.setDate(8, java.sql.Date.valueOf(df.format(account.getStartWorkDate())));
             stmt.setBoolean(9, account.isWorking());
             stmt.setInt(10, account.getId());
+            int rs = stmt.executeUpdate();
+            stmt.close();
+            connection.close();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int updatePassword(int id, String password) {
+        try {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Connection connection = ConnectionFactory.getConnection();
+            String query = "update accounts set password = ?"
+                    + " where id = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, password);
+            stmt.setInt(2, id);
             int rs = stmt.executeUpdate();
             stmt.close();
             connection.close();

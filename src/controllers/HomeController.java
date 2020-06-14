@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import app.App;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import views.HomeView;
@@ -36,26 +37,37 @@ public class HomeController {
     }
 
     private void generateTabByRole() {
-        String role = "owner";
-        switch (role) {
-            case "cashier": {
+        //1 - chef
+        //2 - cashier
+        //3 - waiter
+        //4 - owner
+        switch (App.currentAccount.getRoleId()) {
+            case 1: {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+
                 break;
             }
-            case "waiter": {
+            case 2: {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+
                 break;
             }
-            case "chef": {
+            case 3: {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+
                 break;
             }
-            case "owner": {
+            case 4: {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+
                 break;
             }
             default: {

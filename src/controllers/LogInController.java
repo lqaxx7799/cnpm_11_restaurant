@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import app.App;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -50,6 +51,7 @@ public class LogInController {
         for (Account account : accounts) {
             if (account.getEmail().equals(email) && account.getPassword().equals(CommonUltilities.generateSHA1(password))) {
                 logInFrame.setVisible(false);
+                App.currentAccount = account;
                 HomeController homeController = new HomeController();
                 homeController.initController();
                 return;
