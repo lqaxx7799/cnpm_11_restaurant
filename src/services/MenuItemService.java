@@ -12,8 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import models.MenuItem;
 
 /**
@@ -78,14 +77,15 @@ public class MenuItemService {
 
     public int insert(MenuItem menuItem) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "insert into menu_items "
                     + "(item_name, created_time, is_available, price, menu_category_id) "
                     + "values (?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date createdTime = menuItem.getCreatedTime() == null ? null : new Date(menuItem.getCreatedTime().getTime());
+
             stmt.setString(1, menuItem.getItemName());
-            stmt.setDate(2, java.sql.Date.valueOf(df.format(menuItem.getCreatedTime())));
+            stmt.setDate(2, createdTime);
             stmt.setBoolean(3, menuItem.isAvailable());
             stmt.setDouble(4, menuItem.getPrice());
             stmt.setInt(5, menuItem.getMenuCategoryId());
@@ -101,13 +101,14 @@ public class MenuItemService {
 
     public int update(MenuItem menuItem) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "update menu_items set item_name = ?, created_time = ?, is_available = ?, price = ?, menu_category_id = ? "
                     + "where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date createdTime = menuItem.getCreatedTime() == null ? null : new Date(menuItem.getCreatedTime().getTime());
+
             stmt.setString(1, menuItem.getItemName());
-            stmt.setDate(2, java.sql.Date.valueOf(df.format(menuItem.getCreatedTime())));
+            stmt.setDate(2, createdTime);
             stmt.setBoolean(3, menuItem.isAvailable());
             stmt.setDouble(4, menuItem.getPrice());
             stmt.setInt(5, menuItem.getMenuCategoryId());

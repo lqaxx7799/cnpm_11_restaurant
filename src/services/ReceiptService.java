@@ -12,8 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import models.Receipt;
 
 /**
@@ -78,14 +77,16 @@ public class ReceiptService {
 
     public int insert(Receipt receipt) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "insert into receipts "
                     + "(arrived_time, paid_time, is_paid, table_id, account_id) "
                     + "values (?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setDate(1, java.sql.Date.valueOf(df.format(receipt.getArrivedTime())));
-            stmt.setDate(2, java.sql.Date.valueOf(df.format(receipt.getPaidTime())));
+            Date arrivedTime = receipt.getArrivedTime() == null ? null : new Date(receipt.getArrivedTime().getTime());
+            Date paidTime = receipt.getPaidTime() == null ? null : new Date(receipt.getPaidTime().getTime());
+
+            stmt.setDate(1, arrivedTime);
+            stmt.setDate(2, paidTime);
             stmt.setBoolean(3, receipt.isPaid());
             stmt.setInt(4, receipt.getTableId());
             stmt.setInt(5, receipt.getAccountId());
@@ -101,13 +102,15 @@ public class ReceiptService {
 
     public int update(Receipt receipt) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "update receipts set arrived_time = ?, paid_time = ?, is_paid = ?, table_id = ?, account_id = ? "
                     + " where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setDate(1, java.sql.Date.valueOf(df.format(receipt.getArrivedTime())));
-            stmt.setDate(2, java.sql.Date.valueOf(df.format(receipt.getPaidTime())));
+            Date arrivedTime = receipt.getArrivedTime() == null ? null : new Date(receipt.getArrivedTime().getTime());
+            Date paidTime = receipt.getPaidTime() == null ? null : new Date(receipt.getPaidTime().getTime());
+            
+            stmt.setDate(1, arrivedTime);
+            stmt.setDate(2, paidTime);
             stmt.setBoolean(3, receipt.isPaid());
             stmt.setInt(4, receipt.getTableId());
             stmt.setInt(5, receipt.getAccountId());

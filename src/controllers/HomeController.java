@@ -66,8 +66,8 @@ public class HomeController {
             case 4: {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Quản lý", new ManagementController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
-
                 break;
             }
             default: {

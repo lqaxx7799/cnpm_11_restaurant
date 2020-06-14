@@ -12,8 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import models.MenuCategory;
 
 /**
@@ -74,15 +73,15 @@ public class MenuCategoryService {
 
     public int insert(MenuCategory menuCategory) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "insert into menu_categories "
                     + "(category_name, is_available, created_time) "
                     + "values (?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date createdTime = menuCategory.getCreatedTime() == null ? null : new Date(menuCategory.getCreatedTime().getTime());
             stmt.setString(1, menuCategory.getCategoryName());
             stmt.setBoolean(2, menuCategory.isAvailable());
-            stmt.setDate(3, java.sql.Date.valueOf(df.format(menuCategory.getCreatedTime())));
+            stmt.setDate(3, createdTime);
             int rs = stmt.executeUpdate();
             stmt.close();
             connection.close();
@@ -95,14 +94,15 @@ public class MenuCategoryService {
 
     public int update(MenuCategory menuCategory) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "update menu_categories set category_name = ?, is_available = ?, created_time = ? "
                     + "where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date createdTime = menuCategory.getCreatedTime() == null ? null : new Date(menuCategory.getCreatedTime().getTime());
+
             stmt.setString(1, menuCategory.getCategoryName());
             stmt.setBoolean(2, menuCategory.isAvailable());
-            stmt.setDate(3, java.sql.Date.valueOf(df.format(menuCategory.getCreatedTime())));
+            stmt.setDate(3, createdTime);
             stmt.setInt(4, menuCategory.getId());
             int rs = stmt.executeUpdate();
             stmt.close();

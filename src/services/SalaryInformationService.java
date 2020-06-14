@@ -12,8 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import models.SalaryInformation;
 
 /**
@@ -76,16 +75,18 @@ public class SalaryInformationService {
 
     public int insert(SalaryInformation salaryInformation) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "insert into salary_information "
                     + "(account_id, salary, from_date, to_date) "
                     + "values (?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date fromDate = salaryInformation.getFromDate() == null ? null : new Date(salaryInformation.getFromDate().getTime());
+            Date toDate = salaryInformation.getToDate() == null ? null : new Date(salaryInformation.getToDate().getTime());
+
             stmt.setInt(1, salaryInformation.getAccountId());
             stmt.setDouble(2, salaryInformation.getSalary());
-            stmt.setDate(3, java.sql.Date.valueOf(df.format(salaryInformation.getFromDate())));
-            stmt.setDate(4, java.sql.Date.valueOf(df.format(salaryInformation.getToDate())));
+            stmt.setDate(3, fromDate);
+            stmt.setDate(4, toDate);
             int rs = stmt.executeUpdate();
             stmt.close();
             connection.close();
@@ -98,15 +99,17 @@ public class SalaryInformationService {
 
     public int update(SalaryInformation salaryInformation) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "update salary_information set account_id = ?, salary = ?, from_date = ?, to_date = ? "
                     + "where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date fromDate = salaryInformation.getFromDate() == null ? null : new Date(salaryInformation.getFromDate().getTime());
+            Date toDate = salaryInformation.getToDate() == null ? null : new Date(salaryInformation.getToDate().getTime());
+
             stmt.setInt(1, salaryInformation.getAccountId());
             stmt.setDouble(2, salaryInformation.getSalary());
-            stmt.setDate(3, java.sql.Date.valueOf(df.format(salaryInformation.getFromDate())));
-            stmt.setDate(4, java.sql.Date.valueOf(df.format(salaryInformation.getToDate())));
+            stmt.setDate(3, fromDate);
+            stmt.setDate(4, toDate);
             stmt.setInt(5, salaryInformation.getId());
             int rs = stmt.executeUpdate();
             stmt.close();

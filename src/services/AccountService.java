@@ -12,8 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import models.Account;
 
 /**
@@ -85,20 +84,22 @@ public class AccountService {
 
     public int insert(Account account) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "insert into accounts "
                     + "(email, password, user_name, address, gender, date_of_birth, role_id, start_work_date, is_working) "
                     + "values (?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date dateOfBirth = account.getDateOfBirth() == null ? null : new Date(account.getDateOfBirth().getTime());
+            Date startWorkDate = account.getStartWorkDate() == null ? null : new Date(account.getStartWorkDate().getTime());
+            
             stmt.setString(1, account.getEmail());
             stmt.setString(2, account.getPassword());
             stmt.setString(3, account.getUserName());
             stmt.setString(4, account.getAddress());
             stmt.setString(5, account.getGender());
-            stmt.setDate(6, java.sql.Date.valueOf(df.format(account.getDateOfBirth())));
+            stmt.setDate(6, dateOfBirth);
             stmt.setInt(7, account.getRoleId());
-            stmt.setDate(8, java.sql.Date.valueOf(df.format(account.getStartWorkDate())));
+            stmt.setDate(8, startWorkDate);
             stmt.setBoolean(9, account.isWorking());
 
             int rs = stmt.executeUpdate();
@@ -113,20 +114,22 @@ public class AccountService {
 
     public int update(Account account) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "update accounts set email = ?, password = ?, user_name = ?, address = ?, gender = ?, "
                     + "date_of_birth = ?, role_id = ?, start_work_date = ?, is_working = ?"
                     + " where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date dateOfBirth = account.getDateOfBirth() == null ? null : new java.sql.Date(account.getDateOfBirth().getTime());
+            Date startWorkDate = account.getStartWorkDate() == null ? null : new java.sql.Date(account.getStartWorkDate().getTime());
+            
             stmt.setString(1, account.getEmail());
             stmt.setString(2, account.getPassword());
             stmt.setString(3, account.getUserName());
             stmt.setString(4, account.getAddress());
             stmt.setString(5, account.getGender());
-            stmt.setDate(6, java.sql.Date.valueOf(df.format(account.getDateOfBirth())));
+            stmt.setDate(6, dateOfBirth);
             stmt.setInt(7, account.getRoleId());
-            stmt.setDate(8, java.sql.Date.valueOf(df.format(account.getStartWorkDate())));
+            stmt.setDate(8, startWorkDate);
             stmt.setBoolean(9, account.isWorking());
             stmt.setInt(10, account.getId());
             int rs = stmt.executeUpdate();
@@ -141,7 +144,6 @@ public class AccountService {
 
     public int updatePassword(int id, String password) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "update accounts set password = ?"
                     + " where id = ?";

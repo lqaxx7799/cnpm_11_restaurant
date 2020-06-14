@@ -12,8 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import models.Timekeeping;
 
 /**
@@ -74,15 +73,17 @@ public class TimekeepingService {
 
     public int insert(Timekeeping timekeeping) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "insert into timekeepings "
                     + "(account_id, in_time, out_time) "
                     + "values (?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date inTime = timekeeping.getInTime() == null ? null : new Date(timekeeping.getInTime().getTime());
+            Date outTime = timekeeping.getOutTime() == null ? null : new Date(timekeeping.getOutTime().getTime());
+
             stmt.setInt(1, timekeeping.getAccountId());
-            stmt.setDate(2, java.sql.Date.valueOf(df.format(timekeeping.getInTime())));
-            stmt.setDate(3, java.sql.Date.valueOf(df.format(timekeeping.getOutTime())));
+            stmt.setDate(2, inTime);
+            stmt.setDate(3, outTime);
             int rs = stmt.executeUpdate();
             stmt.close();
             connection.close();
@@ -95,14 +96,16 @@ public class TimekeepingService {
 
     public int update(Timekeeping timekeeping) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "update timekeepings set account_id = ?, in_time = ?, out_time = ? "
                     + " where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date inTime = timekeeping.getInTime() == null ? null : new Date(timekeeping.getInTime().getTime());
+            Date outTime = timekeeping.getOutTime() == null ? null : new Date(timekeeping.getOutTime().getTime());
+
             stmt.setInt(1, timekeeping.getAccountId());
-            stmt.setDate(2, java.sql.Date.valueOf(df.format(timekeeping.getInTime())));
-            stmt.setDate(3, java.sql.Date.valueOf(df.format(timekeeping.getOutTime())));
+            stmt.setDate(2, inTime);
+            stmt.setDate(3, outTime);
             stmt.setInt(4, timekeeping.getId());
             int rs = stmt.executeUpdate();
             stmt.close();

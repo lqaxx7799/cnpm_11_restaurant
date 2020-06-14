@@ -12,8 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import models.IngredientImport;
 
 /**
@@ -78,13 +77,13 @@ public class IngredientImportService {
 
     public int insert(IngredientImport ingredientImport) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "insert into ingredient_imports (ingredient_id, import_time, amount, cost, account_id) "
                     + "values (?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date importDate = ingredientImport.getImportTime() == null ? null : new Date(ingredientImport.getImportTime().getTime());
             stmt.setInt(1, ingredientImport.getIngredientId());
-            stmt.setDate(2, java.sql.Date.valueOf(df.format(ingredientImport.getImportTime())));
+            stmt.setDate(2, importDate);
             stmt.setDouble(3, ingredientImport.getAmount());
             stmt.setDouble(4, ingredientImport.getCost());
             stmt.setInt(5, ingredientImport.getAccountId());
@@ -100,13 +99,13 @@ public class IngredientImportService {
 
     public int update(IngredientImport ingredientImport) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "update ingredient_imports set ingredient_id = ?, import_time = ?, amount = ?, cost = ?, account_id = ? "
                     + "where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
+            Date importDate = ingredientImport.getImportTime() == null ? null : new Date(ingredientImport.getImportTime().getTime());
             stmt.setInt(1, ingredientImport.getIngredientId());
-            stmt.setDate(2, java.sql.Date.valueOf(df.format(ingredientImport.getImportTime())));
+            stmt.setDate(2, importDate);
             stmt.setDouble(3, ingredientImport.getAmount());
             stmt.setDouble(4, ingredientImport.getCost());
             stmt.setInt(5, ingredientImport.getAccountId());
