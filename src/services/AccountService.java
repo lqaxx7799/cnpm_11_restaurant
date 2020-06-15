@@ -66,9 +66,10 @@ public class AccountService {
                 account.setUserName(rs.getString(4));
                 account.setAddress(rs.getString(5));
                 account.setGender(rs.getString(6));
-                account.setRoleId(rs.getInt(7));
-                account.setStartWorkDate(rs.getDate(8));
-                account.setWorking(rs.getBoolean(9));
+                account.setDateOfBirth(rs.getDate(7));
+                account.setRoleId(rs.getInt(8));
+                account.setStartWorkDate(rs.getDate(9));
+                account.setWorking(rs.getBoolean(10));
                 stmt.close();
                 connection.close();
                 return account;

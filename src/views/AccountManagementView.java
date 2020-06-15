@@ -61,12 +61,12 @@ public class AccountManagementView extends javax.swing.JPanel {
         this.btnEdit = btnEdit;
     }
 
-    public JButton getBtnReset() {
-        return btnReset;
+    public JButton getBtnCancel() {
+        return btnCancel;
     }
 
-    public void setBtnReset(JButton btnReset) {
-        this.btnReset = btnReset;
+    public void setBtnCancel(JButton btnCancel) {
+        this.btnCancel = btnCancel;
     }
 
     public JButton getBtnSubmit() {
@@ -93,12 +93,12 @@ public class AccountManagementView extends javax.swing.JPanel {
         this.cbxRole = cbxRole;
     }
 
-    public JCheckBox getjCheckBox1() {
-        return jCheckBox1;
+    public JCheckBox getChbIsWorking() {
+        return chbIsWorking;
     }
 
-    public void setjCheckBox1(JCheckBox jCheckBox1) {
-        this.jCheckBox1 = jCheckBox1;
+    public void setChbIsWorking(JCheckBox chbIsWorking) {
+        this.chbIsWorking = chbIsWorking;
     }
 
     public JScrollPane getjScrollPane1() {
@@ -277,7 +277,7 @@ public class AccountManagementView extends javax.swing.JPanel {
         btnAddNew = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         btnSubmit = new javax.swing.JButton();
         txtUserName = new javax.swing.JTextField();
         lblUserName = new javax.swing.JLabel();
@@ -295,7 +295,7 @@ public class AccountManagementView extends javax.swing.JPanel {
         lblErrGender = new javax.swing.JLabel();
         lblErrDateOfBirth = new javax.swing.JLabel();
         lblErrRole = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        chbIsWorking = new javax.swing.JCheckBox();
         lblIsWorking = new javax.swing.JLabel();
         lblErrIsWorking = new javax.swing.JLabel();
 
@@ -332,7 +332,7 @@ public class AccountManagementView extends javax.swing.JPanel {
 
         btnDelete.setText("Xóa");
 
-        btnReset.setText("Đặt lại");
+        btnCancel.setText("Hủy");
 
         btnSubmit.setText("OK");
 
@@ -345,8 +345,6 @@ public class AccountManagementView extends javax.swing.JPanel {
         lblDateOfBirth.setText("Ngày sinh");
 
         lblRole.setText("Chức vụ");
-
-        cbxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cbxGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -405,7 +403,7 @@ public class AccountManagementView extends javax.swing.JPanel {
                                         .addComponent(lblIsWorking))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jCheckBox1)
+                                        .addComponent(chbIsWorking)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtDateOfBirth, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                                             .addComponent(cbxRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -425,7 +423,7 @@ public class AccountManagementView extends javax.swing.JPanel {
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -443,7 +441,7 @@ public class AccountManagementView extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnReset)
+                        .addComponent(btnCancel)
                         .addGap(18, 18, 18)
                         .addComponent(btnSubmit))
                     .addGroup(layout.createSequentialGroup()
@@ -481,23 +479,23 @@ public class AccountManagementView extends javax.swing.JPanel {
                             .addComponent(lblErrRole))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox1)
+                    .addComponent(chbIsWorking)
                     .addComponent(lblIsWorking)
                     .addComponent(lblErrIsWorking))
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddNew;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cbxGender;
     private javax.swing.JComboBox<String> cbxRole;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox chbIsWorking;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblDateOfBirth;
