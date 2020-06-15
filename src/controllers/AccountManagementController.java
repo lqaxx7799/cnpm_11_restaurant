@@ -29,62 +29,63 @@ import views.AccountManagementView;
  * @author Admin
  */
 public class AccountManagementController {
-
+    
     private AccountManagementView accountManagementView;
     private AccountService accountService;
     private RoleService roleService;
-
+    
     private DateFormat df;
-
+    
     private static String actionType = "";
-
+    private static int activeAccountId = 0;
+    
     public AccountManagementController() {
         accountManagementView = new AccountManagementView();
         accountService = new AccountService();
         roleService = new RoleService();
-
+        
         df = new SimpleDateFormat("dd/MM/yyyy");
-
+        
         loadTable();
-
+        
         accountManagementView.getCbxGender().removeAllItems();
         accountManagementView.getCbxGender().addItem("male");
         accountManagementView.getCbxGender().addItem("female");
         accountManagementView.getCbxGender().addItem("other");
-
+        
         accountManagementView.getCbxRole().removeAllItems();
         for (Role role : roleService.getAll()) {
             accountManagementView.getCbxRole().addItem(role.getRoleName());
         }
-
+        
         setButtonsState(true);
         setFormState(false);
         resetError();
-
+        
         accountManagementView.getBtnAddNew().addActionListener(e -> addNewHandler());
         accountManagementView.getBtnEdit().addActionListener(e -> editHandler());
         accountManagementView.getBtnDelete().addActionListener(e -> deleteHandler());
         accountManagementView.getBtnCancel().addActionListener(e -> cancelHandler());
         accountManagementView.getBtnSubmit().addActionListener(e -> submitHandler());
-
+        
     }
-
+    
     public AccountManagementView initController() {
         return accountManagementView;
     }
-
+    
     private void loadTable() {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-
+        
         ArrayList<Account> accounts = accountService.getAll();
         ArrayList<Role> roles = roleService.getAll();
-
+        
         DefaultTableModel accountModel = (DefaultTableModel) accountManagementView.getTblAccount().getModel();
-
+        
         for (int i = accountModel.getRowCount() - 1; i >= 0; i--) {
             accountModel.removeRow(i);
         }
-
+        
         for (Account account : accounts) {
             String roleName = "";
             for (Role role : roles) {
@@ -95,7 +96,7 @@ public class AccountManagementController {
             }
             String dateOfBirth = account.getDateOfBirth() == null ? "" : df.format(account.getDateOfBirth());
             String startWorkDate = account.getStartWorkDate() == null ? "" : df.format(account.getStartWorkDate());
-
+            
             Object[] rowData = new Object[]{
                 account.getId(),
                 account.getEmail(),
@@ -107,25 +108,25 @@ public class AccountManagementController {
                 startWorkDate,
                 account.isWorking()
             };
-
+            
             accountModel.addRow(rowData);
         }
     }
-
+    
     private void addNewHandler() {
         setButtonsState(false);
         setFormState(true);
         actionType = "add";
     }
-
+    
     private void editHandler() {
         int selectedRow = accountManagementView.getTblAccount().getSelectedRow();
-
+        
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(null, "Chọn một hàng trước");
             return;
         }
-
+        
         int accountId = (int) accountManagementView.getTblAccount().getValueAt(selectedRow, 0);
         Account account = accountService.getById(accountId);
         accountManagementView.getTxtEmail().setText(account.getEmail());
@@ -133,21 +134,35 @@ public class AccountManagementController {
         accountManagementView.getTxtAddress().setText(account.getAddress());
         accountManagementView.getTxtUserName().setText(account.getUserName());
         accountManagementView.getCbxGender().setSelectedItem(account.getGender());
-
+        
         Role role = roleService.getById(account.getRoleId());
         accountManagementView.getCbxRole().setSelectedItem(role.getRoleName());
         
         accountManagementView.getChbIsWorking().setSelected(account.isWorking());
-
+        
         setButtonsState(false);
         setFormState(true);
         actionType = "edit";
+        activeAccountId = accountId;
     }
-
+    
     private void deleteHandler() {
-
+        int selectedRow = accountManagementView.getTblAccount().getSelectedRow();
+        
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Chọn một hàng trước");
+            return;
+        }
+        
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Xóa tài khoản này?", "Thông báo", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            int accountId = (int) accountManagementView.getTblAccount().getValueAt(selectedRow, 0);
+            accountService.delete(accountId);
+            loadTable();
+        }
     }
-
+    
     private void cancelHandler() {
         resetError();
         resetForm();
@@ -155,10 +170,10 @@ public class AccountManagementController {
         setFormState(false);
         actionType = "";
     }
-
+    
     private void submitHandler() {
         resetError();
-
+        
         String email = accountManagementView.getTxtEmail().getText();
         String userName = accountManagementView.getTxtUserName().getText();
         String address = accountManagementView.getTxtAddress().getText();
@@ -166,16 +181,16 @@ public class AccountManagementController {
         String gender = accountManagementView.getCbxGender().getSelectedItem().toString();
         String role = (String) accountManagementView.getCbxRole().getSelectedItem();
         boolean isWorking = accountManagementView.getChbIsWorking().isSelected();
-
+        
         boolean isValid = true;
-
+        
         if (email.equals("")) {
             isValid = false;
             accountManagementView.getLblErrEmail().setText("Nhập email");
         } else if (!CommonUltilities.checkEmailFormat(email)) {
             isValid = false;
             accountManagementView.getLblErrEmail().setText("Nhập email đúng định dạng");
-        } else {
+        } else if (actionType.equals("add")) {
             ArrayList<Account> accounts = accountService.getAll();
             for (Account a : accounts) {
                 if (a.getEmail().equals(email)) {
@@ -185,12 +200,12 @@ public class AccountManagementController {
                 }
             }
         }
-
+        
         if (userName.equals("")) {
             isValid = false;
             accountManagementView.getLblErrUserName().setText("Nhập tên người dùng");
         }
-
+        
         Date dateOfBirth = null;
         if (!dateOfBirthString.equals("")) {
             if (!CommonUltilities.checkDateFormat(dateOfBirthString)) {
@@ -208,7 +223,7 @@ public class AccountManagementController {
                 }
             }
         }
-
+        
         int roleId = 0;
         for (Role r : roleService.getAll()) {
             if (r.getRoleName().equals(role)) {
@@ -220,7 +235,7 @@ public class AccountManagementController {
             isValid = false;
             accountManagementView.getLblErrRole().setText("Chức vụ không tồn tại");
         }
-
+        
         if (isValid) {
             if (actionType.equals("add")) {
                 Account account = new Account();
@@ -233,17 +248,34 @@ public class AccountManagementController {
                 account.setWorking(isWorking);
                 account.setPassword(CommonUltilities.generateSHA1("123456"));
                 account.setRoleId(roleId);
-
+                
                 accountService.insert(account);
-
+                
                 loadTable();
                 resetForm();
                 setFormState(false);
                 setButtonsState(true);
+            } else if (actionType.equals("edit")) {
+                Account account = accountService.getById(activeAccountId);
+                account.setEmail(email);
+                account.setAddress(address);
+                account.setUserName(userName);
+                account.setDateOfBirth(dateOfBirth);
+                account.setGender(gender);
+                account.setWorking(isWorking);
+                account.setRoleId(roleId);
+                
+                accountService.update(account);
+                
+                loadTable();
+                resetForm();
+                setFormState(false);
+                setButtonsState(true);
+                activeAccountId = 0;
             }
         }
     }
-
+    
     private void resetError() {
         accountManagementView.getLblErrEmail().setText("");
         accountManagementView.getLblErrDateOfBirth().setText("");
@@ -253,7 +285,7 @@ public class AccountManagementController {
         accountManagementView.getLblErrRole().setText("");
         accountManagementView.getLblErrIsWorking().setText("");
     }
-
+    
     private void resetForm() {
         accountManagementView.getTxtEmail().setText("");
         accountManagementView.getTxtDateOfBirth().setText("");
@@ -263,7 +295,7 @@ public class AccountManagementController {
         accountManagementView.getCbxRole().setSelectedIndex(0);
         accountManagementView.getChbIsWorking().setSelected(false);
     }
-
+    
     private void setFormState(boolean state) {
         accountManagementView.getTxtEmail().setEnabled(state);
         accountManagementView.getTxtDateOfBirth().setEnabled(state);
@@ -273,7 +305,7 @@ public class AccountManagementController {
         accountManagementView.getCbxRole().setEnabled(state);
         accountManagementView.getChbIsWorking().setEnabled(state);
     }
-
+    
     private void setButtonsState(boolean state) {
         accountManagementView.getBtnAddNew().setEnabled(state);
         accountManagementView.getBtnEdit().setEnabled(state);
