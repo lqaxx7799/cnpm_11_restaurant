@@ -47,6 +47,7 @@ public class HomeController {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Chấm công", new TimeKeepingController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+                homeView.getTabHome().addTab("Nhập Nguyên Liệu", new IngredientImportController().initController());
                 break;
             }
             case 2: {
