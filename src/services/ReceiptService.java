@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.sql.Date;
+import java.sql.Timestamp;
 import models.Receipt;
 
 /**
@@ -31,8 +31,8 @@ public class ReceiptService {
             while (rs.next()) {
                 Receipt receipt = new Receipt();
                 receipt.setId(rs.getInt(1));
-                receipt.setArrivedTime(rs.getDate(2));
-                receipt.setPaidTime(rs.getDate(3));
+                receipt.setArrivedTime(rs.getTimestamp(2));
+                receipt.setPaidTime(rs.getTimestamp(3));
                 receipt.setPaid(rs.getBoolean(4));
                 receipt.setTableId(rs.getInt(5));
                 receipt.setAccountId(rs.getInt(6));
@@ -57,8 +57,8 @@ public class ReceiptService {
             if (rs.next()) {
                 Receipt receipt = new Receipt();
                 receipt.setId(rs.getInt(1));
-                receipt.setArrivedTime(rs.getDate(2));
-                receipt.setPaidTime(rs.getDate(3));
+                receipt.setArrivedTime(rs.getTimestamp(2));
+                receipt.setPaidTime(rs.getTimestamp(3));
                 receipt.setPaid(rs.getBoolean(4));
                 receipt.setTableId(rs.getInt(5));
                 receipt.setAccountId(rs.getInt(6));
@@ -82,11 +82,11 @@ public class ReceiptService {
                     + "(arrived_time, paid_time, is_paid, table_id, account_id) "
                     + "values (?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
-            Date arrivedTime = receipt.getArrivedTime() == null ? null : new Date(receipt.getArrivedTime().getTime());
-            Date paidTime = receipt.getPaidTime() == null ? null : new Date(receipt.getPaidTime().getTime());
+            Timestamp arrivedTime = receipt.getArrivedTime() == null ? null : new Timestamp(receipt.getArrivedTime().getTime());
+            Timestamp paidTime = receipt.getPaidTime() == null ? null : new Timestamp(receipt.getPaidTime().getTime());
 
-            stmt.setDate(1, arrivedTime);
-            stmt.setDate(2, paidTime);
+            stmt.setTimestamp(1, arrivedTime);
+            stmt.setTimestamp(2, paidTime);
             stmt.setBoolean(3, receipt.isPaid());
             stmt.setInt(4, receipt.getTableId());
             stmt.setInt(5, receipt.getAccountId());
@@ -106,11 +106,11 @@ public class ReceiptService {
             String query = "update receipts set arrived_time = ?, paid_time = ?, is_paid = ?, table_id = ?, account_id = ? "
                     + " where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
-            Date arrivedTime = receipt.getArrivedTime() == null ? null : new Date(receipt.getArrivedTime().getTime());
-            Date paidTime = receipt.getPaidTime() == null ? null : new Date(receipt.getPaidTime().getTime());
+            Timestamp arrivedTime = receipt.getArrivedTime() == null ? null : new Timestamp(receipt.getArrivedTime().getTime());
+            Timestamp paidTime = receipt.getPaidTime() == null ? null : new Timestamp(receipt.getPaidTime().getTime());
             
-            stmt.setDate(1, arrivedTime);
-            stmt.setDate(2, paidTime);
+            stmt.setTimestamp(1, arrivedTime);
+            stmt.setTimestamp(2, paidTime);
             stmt.setBoolean(3, receipt.isPaid());
             stmt.setInt(4, receipt.getTableId());
             stmt.setInt(5, receipt.getAccountId());

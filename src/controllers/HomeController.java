@@ -45,28 +45,29 @@ public class HomeController {
             case 1: {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Chấm công", new TimeKeepingController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
-
                 break;
             }
             case 2: {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Chấm công", new TimeKeepingController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
-
                 break;
             }
             case 3: {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Chấm công", new TimeKeepingController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
-
                 break;
             }
             case 4: {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Quản lý", new ManagementController().initController());
+                homeView.getTabHome().addTab("Thống kê", new StatisticController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
                 break;
             }

@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.sql.Date;
+import java.sql.Timestamp;
 import models.MenuCategory;
 
 /**
@@ -33,7 +33,7 @@ public class MenuCategoryService {
                 menuCategory.setId(rs.getInt(1));
                 menuCategory.setCategoryName(rs.getString(2));
                 menuCategory.setAvailable(rs.getBoolean(3));
-                menuCategory.setCreatedTime(rs.getDate(4));
+                menuCategory.setCreatedTime(rs.getTimestamp(4));
                 list.add(menuCategory);
             }
             stmt.close();
@@ -57,7 +57,7 @@ public class MenuCategoryService {
                 menuCategory.setId(rs.getInt(1));
                 menuCategory.setCategoryName(rs.getString(2));
                 menuCategory.setAvailable(rs.getBoolean(3));
-                menuCategory.setCreatedTime(rs.getDate(4));
+                menuCategory.setCreatedTime(rs.getTimestamp(4));
                 stmt.close();
                 connection.close();
                 return menuCategory;
@@ -78,10 +78,10 @@ public class MenuCategoryService {
                     + "(category_name, is_available, created_time) "
                     + "values (?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
-            Date createdTime = menuCategory.getCreatedTime() == null ? null : new Date(menuCategory.getCreatedTime().getTime());
+            Timestamp createdTime = menuCategory.getCreatedTime() == null ? null : new Timestamp(menuCategory.getCreatedTime().getTime());
             stmt.setString(1, menuCategory.getCategoryName());
             stmt.setBoolean(2, menuCategory.isAvailable());
-            stmt.setDate(3, createdTime);
+            stmt.setTimestamp(3, createdTime);
             int rs = stmt.executeUpdate();
             stmt.close();
             connection.close();
@@ -98,11 +98,11 @@ public class MenuCategoryService {
             String query = "update menu_categories set category_name = ?, is_available = ?, created_time = ? "
                     + "where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
-            Date createdTime = menuCategory.getCreatedTime() == null ? null : new Date(menuCategory.getCreatedTime().getTime());
+            Timestamp createdTime = menuCategory.getCreatedTime() == null ? null : new Timestamp(menuCategory.getCreatedTime().getTime());
 
             stmt.setString(1, menuCategory.getCategoryName());
             stmt.setBoolean(2, menuCategory.isAvailable());
-            stmt.setDate(3, createdTime);
+            stmt.setTimestamp(3, createdTime);
             stmt.setInt(4, menuCategory.getId());
             int rs = stmt.executeUpdate();
             stmt.close();

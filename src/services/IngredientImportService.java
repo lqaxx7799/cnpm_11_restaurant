@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.sql.Date;
+import java.sql.Timestamp;
 import models.IngredientImport;
 
 /**
@@ -32,7 +32,7 @@ public class IngredientImportService {
                 IngredientImport ingredientImport = new IngredientImport();
                 ingredientImport.setId(rs.getInt(1));
                 ingredientImport.setIngredientId(rs.getInt(2));
-                ingredientImport.setImportTime(rs.getDate(3));
+                ingredientImport.setImportTime(rs.getTimestamp(3));
                 ingredientImport.setAmount(rs.getDouble(4));
                 ingredientImport.setCost(rs.getDouble(5));
                 ingredientImport.setAccountId(rs.getInt(6));
@@ -58,7 +58,7 @@ public class IngredientImportService {
                 IngredientImport ingredientImport = new IngredientImport();
                 ingredientImport.setId(rs.getInt(1));
                 ingredientImport.setIngredientId(rs.getInt(2));
-                ingredientImport.setImportTime(rs.getDate(3));
+                ingredientImport.setImportTime(rs.getTimestamp(3));
                 ingredientImport.setAmount(rs.getDouble(4));
                 ingredientImport.setCost(rs.getDouble(5));
                 ingredientImport.setAccountId(rs.getInt(6));
@@ -81,9 +81,9 @@ public class IngredientImportService {
             String query = "insert into ingredient_imports (ingredient_id, import_time, amount, cost, account_id) "
                     + "values (?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
-            Date importDate = ingredientImport.getImportTime() == null ? null : new Date(ingredientImport.getImportTime().getTime());
+            Timestamp importDate = ingredientImport.getImportTime() == null ? null : new Timestamp(ingredientImport.getImportTime().getTime());
             stmt.setInt(1, ingredientImport.getIngredientId());
-            stmt.setDate(2, importDate);
+            stmt.setTimestamp(2, importDate);
             stmt.setDouble(3, ingredientImport.getAmount());
             stmt.setDouble(4, ingredientImport.getCost());
             stmt.setInt(5, ingredientImport.getAccountId());
@@ -103,9 +103,9 @@ public class IngredientImportService {
             String query = "update ingredient_imports set ingredient_id = ?, import_time = ?, amount = ?, cost = ?, account_id = ? "
                     + "where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
-            Date importDate = ingredientImport.getImportTime() == null ? null : new Date(ingredientImport.getImportTime().getTime());
+            Timestamp importDate = ingredientImport.getImportTime() == null ? null : new Timestamp(ingredientImport.getImportTime().getTime());
             stmt.setInt(1, ingredientImport.getIngredientId());
-            stmt.setDate(2, importDate);
+            stmt.setTimestamp(2, importDate);
             stmt.setDouble(3, ingredientImport.getAmount());
             stmt.setDouble(4, ingredientImport.getCost());
             stmt.setInt(5, ingredientImport.getAccountId());

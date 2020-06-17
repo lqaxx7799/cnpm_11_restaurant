@@ -12,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import models.ReceiptDetail;
 
 /**
@@ -80,7 +78,6 @@ public class ReceiptDetailService {
 
     public int insert(ReceiptDetail receiptDetail) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "insert into receipt_details "
                     + "(receipt_id, menu_item_id, quantity, unit_price, is_made, is_served) "
@@ -104,7 +101,6 @@ public class ReceiptDetailService {
 
     public int update(ReceiptDetail receiptDetail) {
         try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
             String query = "update receipt_details set receipt_id = ?, menu_item_id = ?, quantity = ?, "
                     + "unit_price = ?, is_made = ?, is_served = ? "

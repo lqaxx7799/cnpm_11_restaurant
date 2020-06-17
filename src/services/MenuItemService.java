@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.sql.Date;
+import java.sql.Timestamp;
 import models.MenuItem;
 
 /**
@@ -32,7 +32,7 @@ public class MenuItemService {
                 MenuItem menuItem = new MenuItem();
                 menuItem.setId(rs.getInt(1));
                 menuItem.setItemName(rs.getString(2));
-                menuItem.setCreatedTime(rs.getDate(3));
+                menuItem.setCreatedTime(rs.getTimestamp(3));
                 menuItem.setAvailable(rs.getBoolean(4));
                 menuItem.setPrice(rs.getDouble(5));
                 menuItem.setMenuCategoryId(rs.getInt(6));
@@ -58,7 +58,7 @@ public class MenuItemService {
                 MenuItem menuItem = new MenuItem();
                 menuItem.setId(rs.getInt(1));
                 menuItem.setItemName(rs.getString(2));
-                menuItem.setCreatedTime(rs.getDate(3));
+                menuItem.setCreatedTime(rs.getTimestamp(3));
                 menuItem.setAvailable(rs.getBoolean(4));
                 menuItem.setPrice(rs.getDouble(5));
                 menuItem.setMenuCategoryId(rs.getInt(6));
@@ -82,10 +82,10 @@ public class MenuItemService {
                     + "(item_name, created_time, is_available, price, menu_category_id) "
                     + "values (?,?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
-            Date createdTime = menuItem.getCreatedTime() == null ? null : new Date(menuItem.getCreatedTime().getTime());
+            Timestamp createdTime = menuItem.getCreatedTime() == null ? null : new Timestamp(menuItem.getCreatedTime().getTime());
 
             stmt.setString(1, menuItem.getItemName());
-            stmt.setDate(2, createdTime);
+            stmt.setTimestamp(2, createdTime);
             stmt.setBoolean(3, menuItem.isAvailable());
             stmt.setDouble(4, menuItem.getPrice());
             stmt.setInt(5, menuItem.getMenuCategoryId());
@@ -105,10 +105,10 @@ public class MenuItemService {
             String query = "update menu_items set item_name = ?, created_time = ?, is_available = ?, price = ?, menu_category_id = ? "
                     + "where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
-            Date createdTime = menuItem.getCreatedTime() == null ? null : new Date(menuItem.getCreatedTime().getTime());
+            Timestamp createdTime = menuItem.getCreatedTime() == null ? null : new Timestamp(menuItem.getCreatedTime().getTime());
 
             stmt.setString(1, menuItem.getItemName());
-            stmt.setDate(2, createdTime);
+            stmt.setTimestamp(2, createdTime);
             stmt.setBoolean(3, menuItem.isAvailable());
             stmt.setDouble(4, menuItem.getPrice());
             stmt.setInt(5, menuItem.getMenuCategoryId());
