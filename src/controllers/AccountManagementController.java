@@ -135,7 +135,7 @@ public class AccountManagementController {
         accountManagementView.getTxtDateOfBirth().setText(account.getDateOfBirth() == null ? "" : df.format(account.getDateOfBirth()));
         accountManagementView.getTxtAddress().setText(account.getAddress());
         accountManagementView.getTxtUserName().setText(account.getUserName());
-        accountManagementView.getCbxGender().setSelectedItem(account.getGender());
+        accountManagementView.getCbxGender().setSelectedItem(account.getGender() == null ? "male" : account.getGender());
 
         Role role = roleService.getById(account.getRoleId());
         accountManagementView.getCbxRole().setSelectedItem(role.getRoleName());
