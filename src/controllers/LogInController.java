@@ -50,6 +50,10 @@ public class LogInController {
         ArrayList<Account> accounts = accountService.getAll();
         for (Account account : accounts) {
             if (account.getEmail().equals(email) && account.getPassword().equals(CommonUltilities.generateSHA1(password))) {
+                if (!account.isWorking()) {
+                    logInView.getLblMessage().setText("Tài khoản không có quyền đăng nhập");
+                    return;
+                }
                 logInFrame.setVisible(false);
                 App.currentAccount = account;
                 HomeController homeController = new HomeController();
@@ -57,7 +61,7 @@ public class LogInController {
                 return;
             }
         }
-        
-        logInView.getLblMessage().setText("Wrong email or password");
+
+        logInView.getLblMessage().setText("Sai email hoặc mật khẩu");
     }
 }

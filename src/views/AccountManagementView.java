@@ -261,6 +261,16 @@ public class AccountManagementView extends javax.swing.JPanel {
         this.txtUserName = txtUserName;
     }
 
+    public JButton getBtnViewSalary() {
+        return btnViewSalary;
+    }
+
+    public void setBtnViewSalary(JButton btnViewSalary) {
+        this.btnViewSalary = btnViewSalary;
+    }
+    
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -298,6 +308,7 @@ public class AccountManagementView extends javax.swing.JPanel {
         chbIsWorking = new javax.swing.JCheckBox();
         lblIsWorking = new javax.swing.JLabel();
         lblErrIsWorking = new javax.swing.JLabel();
+        btnViewSalary = new javax.swing.JButton();
 
         tblAccount.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -371,6 +382,8 @@ public class AccountManagementView extends javax.swing.JPanel {
         lblErrIsWorking.setForeground(new java.awt.Color(255, 0, 0));
         lblErrIsWorking.setText("jLabel7");
 
+        btnViewSalary.setText("Xem lương");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -417,14 +430,15 @@ public class AccountManagementView extends javax.swing.JPanel {
                             .addComponent(lblErrDateOfBirth)
                             .addComponent(lblErrRole)
                             .addComponent(lblErrIsWorking))
-                        .addGap(169, 169, 169)))
+                        .addGap(165, 165, 165)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnAddNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 17, Short.MAX_VALUE))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnViewSalary))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,7 +457,9 @@ public class AccountManagementView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCancel)
                         .addGap(18, 18, 18)
-                        .addComponent(btnSubmit))
+                        .addComponent(btnSubmit)
+                        .addGap(49, 49, 49)
+                        .addComponent(btnViewSalary))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEmail)
@@ -482,7 +498,7 @@ public class AccountManagementView extends javax.swing.JPanel {
                     .addComponent(chbIsWorking)
                     .addComponent(lblIsWorking)
                     .addComponent(lblErrIsWorking))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -493,6 +509,7 @@ public class AccountManagementView extends javax.swing.JPanel {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton btnViewSalary;
     private javax.swing.JComboBox<String> cbxGender;
     private javax.swing.JComboBox<String> cbxRole;
     private javax.swing.JCheckBox chbIsWorking;

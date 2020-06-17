@@ -72,6 +72,32 @@ public class SalaryInformationService {
             return null;
         }
     }
+    
+    public ArrayList<SalaryInformation> getByAccountId(int accountId) {
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+            String query = "select * from salary_information where account_id = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1, accountId);
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<SalaryInformation> list = new ArrayList<>();
+            while (rs.next()) {
+                SalaryInformation salaryInformation = new SalaryInformation();
+                salaryInformation.setId(rs.getInt(1));
+                salaryInformation.setAccountId(rs.getInt(2));
+                salaryInformation.setSalary(rs.getDouble(3));
+                salaryInformation.setFromDate(rs.getDate(4));
+                salaryInformation.setToDate(rs.getDate(5));
+                list.add(salaryInformation);
+            }
+            stmt.close();
+            connection.close();
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public int insert(SalaryInformation salaryInformation) {
         try {
