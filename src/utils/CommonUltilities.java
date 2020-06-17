@@ -47,4 +47,14 @@ public class CommonUltilities {
         Pattern ptr = Pattern.compile("^[0-9]{2}\\/[0-9]{2}\\/[0-9]{4}$");
         return ptr.matcher(input).matches();
     }
+    
+    public static boolean checkIntegerNumberFormat(String input){
+        Pattern ptr = Pattern.compile("^\\-{0,1}[0-9]{1,}$");
+        return ptr.matcher(input).matches();
+    }
+    
+     public static boolean checkDoubleNumberFormat(String input){
+        Pattern ptr = Pattern.compile("^\\-{0,1}[0-9]{1,}(\\.{1}[0-9]{1,}){0,1}$");
+        return ptr.matcher(input).matches();
+    }
 }

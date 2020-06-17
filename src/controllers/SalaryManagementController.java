@@ -6,14 +6,17 @@
 package controllers;
 
 import app.App;
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 import models.SalaryInformation;
 import services.SalaryInformationService;
+import utils.CommonUltilities;
 import views.SalaryManagementView;
 
 /**
@@ -32,11 +35,11 @@ public class SalaryManagementController {
         salaryMangementFrame = new JFrame();
         salaryMangementFrame.setSize(600, 400);
         salaryMangementFrame.add(salaryManagementView);
-        
+
         salaryManagementView.getLblErrSalary().setText("");
 
         loadData();
-        
+
         salaryManagementView.getBtnUpdate().addActionListener(e -> editSalaryHandler());
     }
 
@@ -70,9 +73,45 @@ public class SalaryManagementController {
                 salaryManagementView.getTxtSalary().setText(String.valueOf(salaryInformation.getSalary()));
             }
         }
-    }
-    
-    private void editSalaryHandler(){
         
+        if (salaryInformations.isEmpty()) {
+            salaryManagementView.getTxtSalary().setText("0");
+        }
+    }
+
+    private void editSalaryHandler() {
+        salaryManagementView.getLblErrSalary().setText("");
+        salaryManagementView.getLblErrSalary().setForeground(new Color(255, 0, 0));
+
+        String salaryString = salaryManagementView.getTxtSalary().getText();
+        boolean isValid = true;
+
+        if (!CommonUltilities.checkDoubleNumberFormat(salaryString)) {
+            salaryManagementView.getLblErrSalary().setText("Nhập sai định dạng số");
+            isValid = false;
+        }
+
+        if (isValid) {
+            double salary = Double.parseDouble(salaryString);
+            ArrayList<SalaryInformation> salaryInformations = salaryInformationService.getByAccountId(AccountManagementController.activeAccountId);
+
+            for (SalaryInformation s : salaryInformations) {
+                if (s.getToDate() == null) {
+                    s.setToDate(new Date());
+                    salaryInformationService.update(s);
+                }
+            }
+
+            SalaryInformation salaryInformation = new SalaryInformation();
+            salaryInformation.setAccountId(AccountManagementController.activeAccountId);
+            salaryInformation.setFromDate(new Date());
+            salaryInformation.setSalary(salary);
+            salaryInformationService.insert(salaryInformation);
+
+            salaryManagementView.getLblErrSalary().setText("Cập nhật lương thành công");
+            salaryManagementView.getLblErrSalary().setForeground(new Color(0, 153, 0));
+
+            loadData();
+        }
     }
 }
