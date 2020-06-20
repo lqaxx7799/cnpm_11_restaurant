@@ -210,6 +210,30 @@ public class RevenueStatisticView extends javax.swing.JPanel {
     public void setPnlInformation(JPanel pnlInformation) {
         this.pnlInformation = pnlInformation;
     }
+
+    public JPanel getPnlTable() {
+        return pnlTable;
+    }
+
+    public void setPnlTable(JPanel pnlTable) {
+        this.pnlTable = pnlTable;
+    }
+
+    public JSplitPane getjSplitPane1() {
+        return jSplitPane1;
+    }
+
+    public void setjSplitPane1(JSplitPane jSplitPane1) {
+        this.jSplitPane1 = jSplitPane1;
+    }
+
+    public JPanel getPnlChart() {
+        return pnlChart;
+    }
+
+    public void setPnlChart(JPanel pnlChart) {
+        this.pnlChart = pnlChart;
+    }
     
     
 
@@ -236,6 +260,8 @@ public class RevenueStatisticView extends javax.swing.JPanel {
         btnFilter = new javax.swing.JButton();
         lblErrFilter = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        pnlTable = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRevenueStatistic = new javax.swing.JTable();
         pnlInformation = new javax.swing.JPanel();
@@ -245,6 +271,7 @@ public class RevenueStatisticView extends javax.swing.JPanel {
         lblTimeRange = new javax.swing.JLabel();
         lblTotalRevenue = new javax.swing.JLabel();
         lblTotalReceipt = new javax.swing.JLabel();
+        pnlChart = new javax.swing.JPanel();
 
         jSplitPane2.setDividerLocation(200);
 
@@ -289,7 +316,7 @@ public class RevenueStatisticView extends javax.swing.JPanel {
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
                             .addComponent(lblErrFilter))
-                        .addGap(0, 99, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -317,10 +344,13 @@ public class RevenueStatisticView extends javax.swing.JPanel {
                 .addComponent(lblErrFilter)
                 .addGap(18, 18, 18)
                 .addComponent(btnFilter)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         jSplitPane2.setLeftComponent(jPanel1);
+
+        jSplitPane1.setDividerLocation(250);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         tblRevenueStatistic.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -398,23 +428,49 @@ public class RevenueStatisticView extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
+        pnlTable.setLayout(pnlTableLayout);
+        pnlTableLayout.setHorizontalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
+            .addGroup(pnlTableLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+        pnlTableLayout.setVerticalGroup(
+            pnlTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTableLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 113, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jSplitPane1.setTopComponent(pnlTable);
+
+        javax.swing.GroupLayout pnlChartLayout = new javax.swing.GroupLayout(pnlChart);
+        pnlChart.setLayout(pnlChartLayout);
+        pnlChartLayout.setHorizontalGroup(
+            pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 652, Short.MAX_VALUE)
+        );
+        pnlChartLayout.setVerticalGroup(
+            pnlChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 204, Short.MAX_VALUE)
+        );
+
+        jSplitPane1.setRightComponent(pnlChart);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSplitPane1)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
         );
 
         jSplitPane2.setRightComponent(jPanel2);
@@ -447,12 +503,15 @@ public class RevenueStatisticView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JLabel lblErrFilter;
     private javax.swing.JLabel lblTimeRange;
     private javax.swing.JLabel lblTotalReceipt;
     private javax.swing.JLabel lblTotalRevenue;
+    private javax.swing.JPanel pnlChart;
     private javax.swing.JPanel pnlInformation;
+    private javax.swing.JPanel pnlTable;
     private javax.swing.JTable tblRevenueStatistic;
     private javax.swing.JTextField txtFromDate;
     private javax.swing.JTextField txtToDate;

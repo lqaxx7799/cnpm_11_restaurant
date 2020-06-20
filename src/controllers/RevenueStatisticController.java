@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import java.awt.Dimension;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,10 +15,22 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import models.Receipt;
 import models.ReceiptDetail;
 import models.RevenueStatistic;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.DefaultXYDataset;
+import org.jfree.data.xy.XYDataset;
 import services.ReceiptDetailService;
 import services.ReceiptService;
 import utils.CommonUltilities;
@@ -41,6 +54,8 @@ public class RevenueStatisticController {
         receiptDetailService = new ReceiptDetailService();
         dfDate = new SimpleDateFormat("dd/MM/yyyy");
         dfTime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        
+        revenueStatisticView.getTblRevenueStatistic().getColumnModel().getColumn(0).setMaxWidth(50);
 
         revenueStatisticView.getCbxTimeRange().removeAllItems();
         revenueStatisticView.getCbxTimeRange().addItem("Hôm nay");
@@ -87,10 +102,10 @@ public class RevenueStatisticController {
     }
 
     private void filterHandler() {
-        loadTable();
+        loadStatistic();
     }
 
-    private void loadTable() {
+    private void loadStatistic() {
         ArrayList<Receipt> receipts = receiptService.getAll();
         ArrayList<ReceiptDetail> receiptDetails = receiptDetailService.getAll();
 
@@ -145,8 +160,15 @@ public class RevenueStatisticController {
                     }
                 }
             }
+            String formattedTime = "";
+            if (periodIndex == 0) {
+                formattedTime = dfTime.format(timePeriods.get(i));
+            } else {
+                formattedTime = dfDate.format(timePeriods.get(i));
+            }
             RevenueStatistic revenueStatistic = new RevenueStatistic();
-            revenueStatistic.setTime(dfTime.format(timePeriods.get(i)));
+
+            revenueStatistic.setTime(formattedTime);
             revenueStatistic.setRevenue(revenue);
             revenueStatistic.setReceiptCount(receiptCount);
             tableData.add(revenueStatistic);
@@ -173,5 +195,23 @@ public class RevenueStatisticController {
         revenueStatisticView.getLblTimeRange().setText(timeRangeString);
         revenueStatisticView.getLblTotalRevenue().setText(CommonUltilities.formatCurrency(totalRevenue));
         revenueStatisticView.getLblTotalReceipt().setText(String.valueOf(totalReceipt));
+
+        CategoryDataset ds = createDataset(tableData);
+
+        JFreeChart chart = ChartFactory.createBarChart("Thống kê doanh thu", "Thời gian", "Doanh thu", ds, PlotOrientation.VERTICAL, true, true, false);
+        CategoryPlot plot = chart.getCategoryPlot();
+        CategoryAxis axis = plot.getDomainAxis();
+        axis.setCategoryLabelPositions(CategoryLabelPositions.createDownRotationLabelPositions(Math.PI/4.0));
+        ChartPanel cp = new ChartPanel(chart);
+        revenueStatisticView.getjSplitPane1().setBottomComponent(cp);
+        revenueStatisticView.getjSplitPane1().setDividerLocation(250);
+    }
+
+    private CategoryDataset createDataset(ArrayList<RevenueStatistic> data) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (RevenueStatistic rs : data) {
+            dataset.addValue(rs.getRevenue(), "Doanh thu", rs.getTime());
+        }
+        return dataset;
     }
 }
