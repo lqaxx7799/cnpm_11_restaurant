@@ -35,6 +35,10 @@ public class HomeController {
         homeFrame.setVisible(true);
         generateTabByRole();
     }
+    
+    public JFrame getFrame(){
+        return homeFrame;
+    }
 
     private void generateTabByRole() {
         //1 - chef
@@ -48,6 +52,7 @@ public class HomeController {
                 homeView.getTabHome().addTab("Chấm công", new TimeKeepingController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
                 homeView.getTabHome().addTab("Nhập Nguyên Liệu", new IngredientImportController().initController());
+                homeView.getTabHome().addTab("Đăng xuất", new LogOutController().initController(this));
                 break;
             }
             case 2: {
@@ -55,6 +60,7 @@ public class HomeController {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Chấm công", new TimeKeepingController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+                homeView.getTabHome().addTab("Đăng xuất", new LogOutController().initController(this));
                 break;
             }
             case 3: {
@@ -62,6 +68,7 @@ public class HomeController {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Chấm công", new TimeKeepingController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+                homeView.getTabHome().addTab("Đăng xuất", new LogOutController().initController(this));
                 break;
             }
             case 4: {
@@ -70,6 +77,7 @@ public class HomeController {
                 homeView.getTabHome().addTab("Quản lý", new ManagementController().initController());
                 homeView.getTabHome().addTab("Thống kê", new StatisticController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+                homeView.getTabHome().addTab("Đăng xuất", new LogOutController().initController(this));
                 break;
             }
             default: {

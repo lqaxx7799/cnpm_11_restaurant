@@ -41,6 +41,10 @@ public class LogInController {
     public void initController() {
         logInFrame.setVisible(true);
     }
+    
+    public JFrame getFrame(){
+        return logInFrame;
+    }
 
     private void logInHandler() {
         String email = logInView.getTxtEmail().getText();

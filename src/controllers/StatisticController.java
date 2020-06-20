@@ -16,6 +16,8 @@ public class StatisticController {
     
     public StatisticController(){
         statisticView = new StatisticView();
+        
+        statisticView.getTabStatistic().add("Doanh thu", new RevenueStatisticController().initController());
     }
     
     public StatisticView initController(){
