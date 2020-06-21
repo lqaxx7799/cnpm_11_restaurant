@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 import models.Timekeeping;
 import services.TimekeepingService;
@@ -22,19 +23,29 @@ import views.TimekeepingView;
  *
  * @author Admin
  */
-public class TimeKeepingController {
+public class TimekeepingController implements BaseController {
 
     private TimekeepingView timekeepingView;
     private TimekeepingService timekeepingService;
     private DateFormat dfDate;
     private DateFormat dfTime;
 
-    public TimeKeepingController() {
+    public TimekeepingController() {
         timekeepingView = new TimekeepingView();
         timekeepingService = new TimekeepingService();
         dfDate = new SimpleDateFormat("dd/MM/yyyy");
         dfTime = new SimpleDateFormat("HH:mm:ss");
 
+        timekeepingView.getBtnCreateTimekeeping().addActionListener(e -> createTimeKeeping());
+    }
+
+    @Override
+    public JPanel getPanel() {
+        return timekeepingView;
+    }
+
+    @Override
+    public void loadData() {
         timekeepingView.getLblDate().setText(dfDate.format(new Date()));
         timekeepingView.getLblTime().setText(dfTime.format(new Date()));
 
@@ -54,13 +65,6 @@ public class TimeKeepingController {
                 timekeepingView.getLblOutTime().setText(dfTime.format(timekeeping.getOutTime()));
             }
         }
-
-        timekeepingView.getBtnCreateTimekeeping().addActionListener(e -> createTimeKeeping());
-
-    }
-
-    public TimekeepingView initController() {
-        return timekeepingView;
     }
 
     private void setUpTimer() {

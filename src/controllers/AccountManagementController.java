@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import models.Account;
@@ -29,7 +30,7 @@ import views.AccountManagementView;
  *
  * @author Admin
  */
-public class AccountManagementController {
+public class AccountManagementController implements BaseController {
 
     private AccountManagementView accountManagementView;
     private AccountService accountService;
@@ -44,24 +45,7 @@ public class AccountManagementController {
         accountManagementView = new AccountManagementView();
         accountService = new AccountService();
         roleService = new RoleService();
-
         df = new SimpleDateFormat("dd/MM/yyyy");
-
-        loadTable();
-
-        accountManagementView.getCbxGender().removeAllItems();
-        accountManagementView.getCbxGender().addItem("male");
-        accountManagementView.getCbxGender().addItem("female");
-        accountManagementView.getCbxGender().addItem("other");
-
-        accountManagementView.getCbxRole().removeAllItems();
-        for (Role role : roleService.getAll()) {
-            accountManagementView.getCbxRole().addItem(role.getRoleName());
-        }
-
-        setButtonsState(true);
-        setFormState(false);
-        resetError();
 
         accountManagementView.getBtnAddNew().addActionListener(e -> addNewHandler());
         accountManagementView.getBtnEdit().addActionListener(e -> editHandler());
@@ -113,6 +97,30 @@ public class AccountManagementController {
 
             accountModel.addRow(rowData);
         }
+    }
+    
+    @Override
+    public JPanel getPanel() {
+        return accountManagementView;
+    }
+
+    @Override
+    public void loadData() {
+        accountManagementView.getCbxGender().removeAllItems();
+        accountManagementView.getCbxGender().addItem("male");
+        accountManagementView.getCbxGender().addItem("female");
+        accountManagementView.getCbxGender().addItem("other");
+
+        accountManagementView.getCbxRole().removeAllItems();
+        for (Role role : roleService.getAll()) {
+            accountManagementView.getCbxRole().addItem(role.getRoleName());
+        }
+        
+        loadTable();
+        
+        setButtonsState(true);
+        setFormState(false);
+        resetError();
     }
 
     private void addNewHandler() {

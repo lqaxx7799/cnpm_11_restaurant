@@ -7,25 +7,31 @@ package controllers;
 
 import app.App;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import views.LogOutView;
 
 /**
  *
  * @author Admin
  */
-public class LogOutController {
+public class LogOutController implements BaseController{
     private LogOutView logOutView;
     private HomeController homeController;
     
-    public LogOutController(){
+    public LogOutController(HomeController homeController){
         logOutView = new LogOutView();
+        this.homeController = homeController;
         
         logOutView.getBtnLogOut().addActionListener(l -> logOutHandler());
     }
     
-    public LogOutView initController(HomeController homeController){
-        this.homeController = homeController;
+    @Override
+    public JPanel getPanel() {
         return logOutView;
+    }
+
+    @Override
+    public void loadData() {
     }
     
     private void logOutHandler(){

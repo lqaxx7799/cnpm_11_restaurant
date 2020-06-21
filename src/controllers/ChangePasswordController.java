@@ -6,6 +6,7 @@
 package controllers;
 
 import app.App;
+import javax.swing.JPanel;
 import models.Account;
 import services.AccountService;
 import utils.CommonUltilities;
@@ -15,7 +16,7 @@ import views.ChangePasswordView;
  *
  * @author Admin
  */
-public class ChangePasswordController {
+public class ChangePasswordController implements BaseController{
     
     private ChangePasswordView changePasswordView;
     private AccountService accountService;
@@ -26,9 +27,21 @@ public class ChangePasswordController {
         
         changePasswordView.getBtnSubmit().addActionListener(e -> changePasswordHandler());
     }
-    
-    public ChangePasswordView initController() {
+
+    @Override
+    public JPanel getPanel() {
         return changePasswordView;
+    }
+
+    @Override
+    public void loadData() {
+        changePasswordView.getLblSuccess().setText("");
+        changePasswordView.getLblErrOldPassword().setText("");
+        changePasswordView.getLblErrNewPassword().setText("");
+        changePasswordView.getLblErrReenterNewPassword().setText("");
+        changePasswordView.getTxtOldPassword().setText("");
+        changePasswordView.getTxtNewPassword().setText("");
+        changePasswordView.getTxtReenterNewPassword().setText("");
     }
     
     private void changePasswordHandler() {

@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import models.Receipt;
 import models.ReceiptDetail;
@@ -40,7 +41,7 @@ import views.RevenueStatisticView;
  *
  * @author Admin
  */
-public class RevenueStatisticController {
+public class RevenueStatisticController implements BaseController {
 
     private RevenueStatisticView revenueStatisticView;
     private ReceiptService receiptService;
@@ -54,7 +55,18 @@ public class RevenueStatisticController {
         receiptDetailService = new ReceiptDetailService();
         dfDate = new SimpleDateFormat("dd/MM/yyyy");
         dfTime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        
+
+        revenueStatisticView.getCbxTimeRange().addActionListener(e -> changeTimeRange());
+        revenueStatisticView.getBtnFilter().addActionListener(e -> filterHandler());
+    }
+
+    @Override
+    public JPanel getPanel() {
+        return revenueStatisticView;
+    }
+
+    @Override
+    public void loadData() {
         revenueStatisticView.getTblRevenueStatistic().getColumnModel().getColumn(0).setMaxWidth(50);
 
         revenueStatisticView.getCbxTimeRange().removeAllItems();
@@ -81,13 +93,6 @@ public class RevenueStatisticController {
 
         revenueStatisticView.getCbxTimeRange().setSelectedIndex(2);
         revenueStatisticView.getCbxPeriod().setSelectedIndex(1);
-
-        revenueStatisticView.getCbxTimeRange().addActionListener(e -> changeTimeRange());
-        revenueStatisticView.getBtnFilter().addActionListener(e -> filterHandler());
-    }
-
-    public RevenueStatisticView initController() {
-        return revenueStatisticView;
     }
 
     private void changeTimeRange() {
@@ -201,7 +206,7 @@ public class RevenueStatisticController {
         JFreeChart chart = ChartFactory.createBarChart("Thống kê doanh thu", "Thời gian", "Doanh thu", ds, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = chart.getCategoryPlot();
         CategoryAxis axis = plot.getDomainAxis();
-        axis.setCategoryLabelPositions(CategoryLabelPositions.createDownRotationLabelPositions(Math.PI/4.0));
+        axis.setCategoryLabelPositions(CategoryLabelPositions.createDownRotationLabelPositions(Math.PI / 4.0));
         ChartPanel cp = new ChartPanel(chart);
         revenueStatisticView.getjSplitPane1().setBottomComponent(cp);
         revenueStatisticView.getjSplitPane1().setDividerLocation(250);
