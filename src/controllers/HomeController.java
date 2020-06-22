@@ -63,33 +63,27 @@ public class HomeController {
         //4 - owner
         switch (App.currentAccount.getRoleId()) {
             case 1: {
-                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
-                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Chấm công", timekeepingController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
                 homeView.getTabHome().addTab("Nhập Nguyên Liệu", new IngredientImportController().initController());
+                homeView.getTabHome().addTab("Danh Sách Món Chờ", new AwaitedDishListChefController().initController());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
                 break;
             }
             case 2: {
-                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
-                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Chấm công", timekeepingController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
                 break;
             }
             case 3: {
-                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
-                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Danh Sach Mon Cho", new AwaitedDishListWaiterController().initController());
                 homeView.getTabHome().addTab("Chấm công", timekeepingController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
                 break;
             }
             case 4: {
-                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
-                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Quản lý", managementController.getPanel());
                 homeView.getTabHome().addTab("Thống kê", statisticController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
