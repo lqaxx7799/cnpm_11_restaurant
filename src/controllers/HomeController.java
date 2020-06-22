@@ -102,18 +102,16 @@ public class HomeController {
             case 1: {
                 switch (index) {
                     case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
                         timekeepingController.loadData();
                         break;
-                    case 3:
+                    case 1:
                         changePasswordController.loadData();
                         break;
-                    case 4:
+                    case 2:
                         break;
-                    case 5:
+                    case 3:
+                        break;
+                    case 4:
                         logOutController.loadData();
                         break;
                     default:
@@ -124,16 +122,12 @@ public class HomeController {
             case 2: {
                 switch (index) {
                     case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
                         timekeepingController.loadData();
                         break;
-                    case 3:
+                    case 1:
                         changePasswordController.loadData();
                         break;
-                    case 4:
+                    case 2:
                         logOutController.loadData();
                         break;
                     default:
@@ -146,14 +140,12 @@ public class HomeController {
                     case 0:
                         break;
                     case 1:
-                        break;
-                    case 2:
                         timekeepingController.loadData();
                         break;
-                    case 3:
+                    case 2:
                         changePasswordController.loadData();
                         break;
-                    case 4:
+                    case 3:
                         logOutController.loadData();
                         break;
                     default:
@@ -164,19 +156,15 @@ public class HomeController {
             case 4: {
                 switch (index) {
                     case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
                         managementController.loadData();
                         break;
-                    case 3:
+                    case 1:
                         statisticController.loadData();
                         break;
-                    case 4:
+                    case 2:
                         changePasswordController.loadData();
                         break;
-                    case 5:
+                    case 3:
                         logOutController.loadData();
                         break;
                     default:
