@@ -23,8 +23,9 @@ import java.util.Date;
  * @author Admin
  */
 public class IngredientImportController {
-
+    
     private IngredientImportView ingredientImportView;
+    
     private IngredientService ingredientService;
     private IngredientImportService ingredientImportService;
     private JList<String> IngredientList;
@@ -64,6 +65,8 @@ public class IngredientImportController {
         // So luong .
         // Gia . 
         // ID tai khoan .
+        ingredientImportView.getTxtMessage().setText("");
+        
         if (ingredientImportView.getCbIngredientList().getItemCount() == 0) {
             return;
         }
@@ -76,9 +79,19 @@ public class IngredientImportController {
 
         String amountString = ingredientImportView.getTxtAmount().getText();
         int amount = Integer.parseInt(amountString); // day la so luong cua nguyen lieu muon nhap
+            
+        if(amount == 0){
+            ingredientImportView.getTxtMessage().setText("Chưa nhập số lượng! Nhập lại số lượng");
+            return;
+        }
 
         String costString = ingredientImportView.getTxtCost().getText();
         int cost = Integer.parseInt(costString); // day la thanh tien cua nguyen lieu
+        
+        if(cost == 0){
+            ingredientImportView.getTxtMessage().setText("Chưa nhập thành tiền! Nhập lại thành tiền");
+            return;
+        }
 
         int accountId = App.currentAccount.getId(); // day la ID cua tai khoan nguoi dang nhap
 
@@ -94,6 +107,7 @@ public class IngredientImportController {
         ingredientImportService.insert(ingredientImport);
 
         ingredientImportView.getTxtMessage().setText("Thêm nguyên liệu thành công !");
+        
 
         ingredientImportView.getCbIngredientList().setSelectedIndex(0);
         ingredientImportView.getTxtAmount().setText("0");

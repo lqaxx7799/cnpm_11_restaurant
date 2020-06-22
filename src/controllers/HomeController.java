@@ -48,6 +48,7 @@ public class HomeController {
                 homeView.getTabHome().addTab("Chấm công", new TimeKeepingController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
                 homeView.getTabHome().addTab("Nhập Nguyên Liệu", new IngredientImportController().initController());
+                homeView.getTabHome().addTab("Danh Sách Món Chờ", new AwaitedDishListChefController().initController());
                 break;
             }
             case 2: {
@@ -62,6 +63,8 @@ public class HomeController {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Chấm công", new TimeKeepingController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+                homeView.getTabHome().addTab("Danh Sach Mon Cho", new AwaitedDishListWaiterController().initController());
+                
                 break;
             }
             case 4: {
