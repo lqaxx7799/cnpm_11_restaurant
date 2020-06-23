@@ -78,7 +78,7 @@ public class HomeController {
             }
             case 3: {
                 homeView.getTabHome().addTab("Danh Sach Mon Cho", new AwaitedDishListWaiterController().initController());
-                homeView.getTabHome().addTab("Goi mon", new OrderController().initController());
+//                homeView.getTabHome().addTab("Goi mon", new OrderController().initController());
                 homeView.getTabHome().addTab("Chấm công", timekeepingController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
