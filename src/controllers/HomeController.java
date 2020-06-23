@@ -42,10 +42,11 @@ public class HomeController {
         ingredientImportController = new IngredientImportController();
 
         JFrame jframe = new JFrame();
-        jframe.setSize(600, 400);
+        jframe.setSize(760, 440);
+        jframe.setResizable(false);
+        jframe.setLocationRelativeTo(null);
         jframe.add(homeView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
         homeFrame = jframe;
 
         homeView.getTabHome().addChangeListener(l -> changeTab(l));
@@ -82,6 +83,7 @@ public class HomeController {
             }
             case 3: {
                 homeView.getTabHome().addTab("Danh Sach Mon Cho", awaitedDishListWaiterController.getPanel());
+                homeView.getTabHome().addTab("Goi mon", new OrderController().initController());
                 homeView.getTabHome().addTab("Chấm công", timekeepingController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());

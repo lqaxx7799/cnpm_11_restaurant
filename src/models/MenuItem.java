@@ -58,5 +58,4 @@ public class MenuItem {
     public void setMenuCategoryId(int menuCategoryId) {
         this.menuCategoryId = menuCategoryId;
     }
-
 }
