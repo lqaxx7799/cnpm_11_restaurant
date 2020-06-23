@@ -31,8 +31,7 @@ public class LogInController {
         logInView.getBtnLogIn().addActionListener(e -> logInHandler());
 
         JFrame jframe = new JFrame();
-        jframe.setSize(500, 300);
-        jframe.setLocationRelativeTo(null);
+        jframe.setSize(600, 400);
         jframe.add(logInView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
 

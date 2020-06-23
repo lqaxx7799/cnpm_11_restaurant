@@ -38,11 +38,10 @@ public class HomeController {
         statisticController = new StatisticController();
 
         JFrame jframe = new JFrame();
-        jframe.setSize(760, 440);
-        jframe.setResizable(false);
-        jframe.setLocationRelativeTo(null);
+        jframe.setSize(600, 400);
         jframe.add(homeView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         homeFrame = jframe;
 
         homeView.getTabHome().addChangeListener(l -> changeTab(l));
