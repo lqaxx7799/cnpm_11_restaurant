@@ -20,14 +20,17 @@ public class StatisticController implements BaseController {
 
     private RevenueStatisticController revenueStatisticController;
     private ExpenseStatisticController expenseStatisticController;
+    private MenuItemStatisticController menuItemStatisticController;
 
     public StatisticController() {
         statisticView = new StatisticView();
         revenueStatisticController = new RevenueStatisticController();
         expenseStatisticController = new ExpenseStatisticController();
+        menuItemStatisticController = new MenuItemStatisticController();
 
         statisticView.getTabStatistic().add("Doanh thu", revenueStatisticController.getPanel());
         statisticView.getTabStatistic().add("Chi phí", expenseStatisticController.getPanel());
+        statisticView.getTabStatistic().add("Món", menuItemStatisticController.getPanel());
 
         statisticView.getTabStatistic().addChangeListener(e -> changeTab(e));
     }
@@ -51,6 +54,9 @@ public class StatisticController implements BaseController {
                 break;
             case 1:
                 expenseStatisticController.loadData();
+                break;
+            case 2:
+                menuItemStatisticController.loadData();
                 break;
             default:
                 break;
