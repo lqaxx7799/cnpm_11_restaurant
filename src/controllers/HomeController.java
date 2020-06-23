@@ -30,6 +30,7 @@ public class HomeController {
 
     public HomeController() {
         this.homeView = new HomeView();
+<<<<<<< Updated upstream
 
         managementController = new ManagementController();
         timekeepingController = new TimekeepingController();
@@ -37,11 +38,14 @@ public class HomeController {
         logOutController = new LogOutController(this);
         statisticController = new StatisticController();
 
+=======
+>>>>>>> Stashed changes
         JFrame jframe = new JFrame();
-        jframe.setSize(600, 400);
+        jframe.setSize(760, 440);
+        jframe.setResizable(false);
+        jframe.setLocationRelativeTo(null);
         jframe.add(homeView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
         homeFrame = jframe;
 
         homeView.getTabHome().addChangeListener(l -> changeTab(l));
@@ -77,10 +81,17 @@ public class HomeController {
                 break;
             }
             case 3: {
+<<<<<<< Updated upstream
                 homeView.getTabHome().addTab("Danh Sach Mon Cho", new AwaitedDishListWaiterController().initController());
                 homeView.getTabHome().addTab("Chấm công", timekeepingController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
+=======
+                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
+                homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+                homeView.getTabHome().addTab("Goi mon", new OrderController().initController());
+>>>>>>> Stashed changes
                 break;
             }
             case 4: {
