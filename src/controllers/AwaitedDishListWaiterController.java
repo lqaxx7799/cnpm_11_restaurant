@@ -8,6 +8,7 @@ package controllers;
 import java.awt.ComponentOrientation;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import models.MenuCategory;
@@ -26,7 +27,7 @@ import views.AwaitedDishListWaiterView;
  *
  * @author Admin
  */
-public class AwaitedDishListWaiterController {
+public class AwaitedDishListWaiterController implements BaseController{
 
     private AwaitedDishListWaiterView awaitedDishListWaiterView;
     private ReceiptDetailService receiptDetailService;
@@ -46,10 +47,17 @@ public class AwaitedDishListWaiterController {
         awaitedDishListWaiterView.getBtnWatierUpdate().addActionListener(al -> updateHandler());
         awaitedDishListWaiterView.getBtnWatierDone().addActionListener(al -> doneHandler());
     }
-
-    public AwaitedDishListWaiterView initController() {
+    
+    @Override
+    public JPanel getPanel() {
         return awaitedDishListWaiterView;
     }
+
+    @Override
+    public void loadData() {
+
+    }
+    
 
     private void updateHandler() {
         DefaultTableModel listModel = (DefaultTableModel) awaitedDishListWaiterView.getAwaitedDishLstWaiterTable().getModel();

@@ -8,6 +8,7 @@ package controllers;
 import java.awt.ComponentOrientation;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import models.MenuCategory;
@@ -26,7 +27,7 @@ import views.AwaitedDishListChefView;
  *
  * @author Admin
  */
-public class AwaitedDishListChefController {
+public class AwaitedDishListChefController  implements BaseController{
 
     // Lay isMade trong ReceiptDetail .
     // Lây categoryName trong MenuCategory (Danh muc mon)
@@ -52,8 +53,15 @@ public class AwaitedDishListChefController {
         awaitedDishListChefView.getBtnDone().addActionListener(al -> doneHandler());
     }
 
-    public AwaitedDishListChefView initController() {
+    
+    @Override
+    public JPanel getPanel() {
         return awaitedDishListChefView;
+    }
+
+    @Override
+    public void loadData() {
+        
     }
 
     private void updateHandler() {
