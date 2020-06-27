@@ -18,12 +18,18 @@ public class ManagementController implements BaseController {
     private ManagementView managementView;
 
     private AccountManagementController accountManagementController;
+    private IngredientManagementController ingredientManagementController;
+    private TableManagementController tableManagementController;
 
     public ManagementController() {
         managementView = new ManagementView();
         accountManagementController = new AccountManagementController();
+        ingredientManagementController = new IngredientManagementController();
+        tableManagementController = new TableManagementController();
 
         managementView.getTabManagement().addTab("Tài khoản", accountManagementController.getPanel());
+        managementView.getTabManagement().addTab("Nguyên Liệu", ingredientManagementController.getPanel());
+        managementView.getTabManagement().addTab("Bàn", tableManagementController.getPanel());
 
         managementView.getTabManagement().addChangeListener(e -> changeTab(e));
     }
@@ -44,6 +50,12 @@ public class ManagementController implements BaseController {
         switch (index) {
             case 0:
                 accountManagementController.loadData();
+                break;
+            case 1:
+                ingredientManagementController.loadData();
+                break;
+            case 2:
+                tableManagementController.loadData();
                 break;
             default:
                 break;

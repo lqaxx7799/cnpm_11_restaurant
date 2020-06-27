@@ -8,6 +8,7 @@ package controllers;
 import java.awt.ComponentOrientation;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import models.MenuCategory;
@@ -26,7 +27,7 @@ import views.AwaitedDishListChefView;
  *
  * @author Admin
  */
-public class AwaitedDishListChefController {
+public class AwaitedDishListChefController  implements BaseController{
 
     // Lay isMade trong ReceiptDetail .
     // Lây categoryName trong MenuCategory (Danh muc mon)
@@ -52,8 +53,29 @@ public class AwaitedDishListChefController {
         awaitedDishListChefView.getBtnDone().addActionListener(al -> doneHandler());
     }
 
-    public AwaitedDishListChefView initController() {
+    
+    @Override
+    public JPanel getPanel() {
         return awaitedDishListChefView;
+    }
+
+    @Override
+    public void loadData() {
+        DefaultTableModel listModel = (DefaultTableModel) awaitedDishListChefView.getAwaitedDishLstTable().getModel();
+
+        ArrayList<ReceiptDetail> receiptDetails = receiptDetailService.getAll(); // CSDL receiptDetails
+
+        ArrayList<MenuItem> menuItems = menuItemService.getAll();  // CSDL menuItems
+
+        ArrayList<MenuCategory> menuCategorys = menuCategoryService.getAll(); // CSDL menuCategory
+
+        ArrayList<Receipt> receipts = receiptService.getAll();      // CSDL receipt
+
+        ArrayList<Table> tables = tableService.getAll(); // CSDL table
+
+        for (int i = listModel.getRowCount() - 1; i >= 0; i--) {
+            listModel.removeRow(i);
+        }
     }
 
     private void updateHandler() {
@@ -137,7 +159,6 @@ public class AwaitedDishListChefController {
     }
     
     public void decorateTable() {
-        //center allignment 
         ((DefaultTableCellRenderer) awaitedDishListChefView.getAwaitedDishLstTable().getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment((int) JLabel.CENTER_ALIGNMENT);
 
@@ -147,8 +168,5 @@ public class AwaitedDishListChefController {
         for (int x = 0; x < awaitedDishListChefView.getAwaitedDishLstTable().getColumnCount(); x++) {
             awaitedDishListChefView.getAwaitedDishLstTable().getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
         }
-
-        //rtf  deirection
-     //   awaitedDishListChefView.getAwaitedDishLstTable().setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }
 }
