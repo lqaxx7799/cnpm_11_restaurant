@@ -40,13 +40,14 @@ public class HomeController {
         logOutController = new LogOutController(this);
         statisticController = new StatisticController();
         ingredientImportController = new IngredientImportController();
-
+        awaitedDishListChefController = new AwaitedDishListChefController();
+        awaitedDishListWaiterController = new AwaitedDishListWaiterController();
+        
         JFrame jframe = new JFrame();
-        jframe.setSize(760, 440);
-        jframe.setResizable(false);
-        jframe.setLocationRelativeTo(null);
+        jframe.setSize(600, 400);
         jframe.add(homeView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         homeFrame = jframe;
 
         homeView.getTabHome().addChangeListener(l -> changeTab(l));
@@ -82,8 +83,7 @@ public class HomeController {
                 break;
             }
             case 3: {
-                homeView.getTabHome().addTab("Danh Sach Mon Cho", awaitedDishListWaiterController.getPanel());
-                homeView.getTabHome().addTab("Goi mon", new OrderController().initController());
+                homeView.getTabHome().addTab("Danh Sách Món Chờ", new AwaitedDishListWaiterController().getPanel());
                 homeView.getTabHome().addTab("Chấm công", timekeepingController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());

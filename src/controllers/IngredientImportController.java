@@ -17,6 +17,7 @@ import models.IngredientImport;
 import services.IngredientImportService;
 import services.IngredientService;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -80,29 +81,32 @@ public class IngredientImportController implements BaseController {
         int ingredientIndex = ingredientImportView.getCbIngredientList().getSelectedIndex();
         ArrayList<Ingredient> ingredientList = ingredientService.getAll();
         Ingredient ingredient = ingredientList.get(ingredientIndex);
+        
+        String regex = "^[0-9]{1,}$";
 
         int ingredientID = ingredient.getId(); // day la id cua nguyen lieu duoc chon
 
         String amountString = ingredientImportView.getTxtAmount().getText();
-        if(amountString.equals("")){
+        if(amountString.equals("") || !amountString.matches(regex)){
+            JOptionPane.showMessageDialog(null, "Chưa nhập sốlượng hoặc nhập sai định dạng!");
             return;
         }
         int amount = Integer.parseInt(amountString); // day la so luong cua nguyen lieu muon nhap
 
         if (amount == 0) {
-            ingredientImportView.getTxtMessage().setText("Chưa nhập số lượng! Nhập lại số lượng");
+            JOptionPane.showMessageDialog(null, "Chưa nhập sốlượng!");
             return;
         }
 
         String costString = ingredientImportView.getTxtCost().getText();
-        if(costString.equals("")){
-            ingredientImportView.getTxtMessage().setText("Chưa nhập thành tiền! Nhập lại thành tiền");
+        if(costString.equals("") || !costString.matches(regex)){
+            JOptionPane.showMessageDialog(null, "Chưa nhập thành tiền hoặc nhập sai định dạng!");
             return;
         }
         int cost = Integer.parseInt(costString); // day la thanh tien cua nguyen lieu
 
         if (cost == 0) {
-            ingredientImportView.getTxtMessage().setText("Chưa nhập thành tiền! Nhập lại thành tiền");
+            JOptionPane.showMessageDialog(null, "Chưa nhập thành tiền!");
             return;
         }
 
@@ -119,7 +123,7 @@ public class IngredientImportController implements BaseController {
 
         ingredientImportService.insert(ingredientImport);
 
-        ingredientImportView.getTxtMessage().setText("Thêm nguyên liệu thành công !");
+        JOptionPane.showMessageDialog(null, "Nhập nguyên liệu thành công!");
 
         ingredientImportView.getCbIngredientList().setSelectedIndex(0);
         ingredientImportView.getTxtAmount().setText("0");

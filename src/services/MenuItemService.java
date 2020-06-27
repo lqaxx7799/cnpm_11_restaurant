@@ -46,25 +46,6 @@ public class MenuItemService {
             return new ArrayList<>();
         }
     }
-    public ArrayList<String> getNameByCategoryId(int categoryId){
-        try {
-            Connection connection = ConnectionFactory.getConnection();
-            String query = "select item_name from menu_items where menu_category_id = ?";
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setInt(1,categoryId);
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<String> list = new ArrayList<>();
-            while (rs.next()) {
-                list.add(rs.getString(1));
-            }
-            stmt.close();
-            connection.close();
-            return list;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
-    }
 
     public MenuItem getById(int id) {
         try {

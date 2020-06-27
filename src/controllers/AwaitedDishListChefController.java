@@ -61,7 +61,21 @@ public class AwaitedDishListChefController  implements BaseController{
 
     @Override
     public void loadData() {
-        
+        DefaultTableModel listModel = (DefaultTableModel) awaitedDishListChefView.getAwaitedDishLstTable().getModel();
+
+        ArrayList<ReceiptDetail> receiptDetails = receiptDetailService.getAll(); // CSDL receiptDetails
+
+        ArrayList<MenuItem> menuItems = menuItemService.getAll();  // CSDL menuItems
+
+        ArrayList<MenuCategory> menuCategorys = menuCategoryService.getAll(); // CSDL menuCategory
+
+        ArrayList<Receipt> receipts = receiptService.getAll();      // CSDL receipt
+
+        ArrayList<Table> tables = tableService.getAll(); // CSDL table
+
+        for (int i = listModel.getRowCount() - 1; i >= 0; i--) {
+            listModel.removeRow(i);
+        }
     }
 
     private void updateHandler() {
@@ -145,7 +159,6 @@ public class AwaitedDishListChefController  implements BaseController{
     }
     
     public void decorateTable() {
-        //center allignment 
         ((DefaultTableCellRenderer) awaitedDishListChefView.getAwaitedDishLstTable().getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment((int) JLabel.CENTER_ALIGNMENT);
 
@@ -155,8 +168,5 @@ public class AwaitedDishListChefController  implements BaseController{
         for (int x = 0; x < awaitedDishListChefView.getAwaitedDishLstTable().getColumnCount(); x++) {
             awaitedDishListChefView.getAwaitedDishLstTable().getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
         }
-
-        //rtf  deirection
-     //   awaitedDishListChefView.getAwaitedDishLstTable().setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }
 }

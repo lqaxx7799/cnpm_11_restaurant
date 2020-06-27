@@ -55,7 +55,7 @@ public class AwaitedDishListWaiterController implements BaseController{
 
     @Override
     public void loadData() {
-
+        
     }
     
 
@@ -139,7 +139,6 @@ public class AwaitedDishListWaiterController implements BaseController{
     }
 
     public void decorateTable() {
-        //center allignment 
         ((DefaultTableCellRenderer) awaitedDishListWaiterView.getAwaitedDishLstWaiterTable().getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment((int) JLabel.CENTER_ALIGNMENT);
 
@@ -149,8 +148,5 @@ public class AwaitedDishListWaiterController implements BaseController{
         for (int x = 0; x < awaitedDishListWaiterView.getAwaitedDishLstWaiterTable().getColumnCount(); x++) {
             awaitedDishListWaiterView.getAwaitedDishLstWaiterTable().getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
         }
-
-        //rtf  deirection
-//        awaitedDishListWaiterView.getAwaitedDishLstWaiterTable().setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
     }
 }
