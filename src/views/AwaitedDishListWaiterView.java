@@ -80,7 +80,7 @@ public class AwaitedDishListWaiterView extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         AwaitedDishLstWaiterTable = new javax.swing.JTable();
 
-        BtnWatierUpdate.setText("Cập nhật");
+        BtnWatierUpdate.setText("Làm mới");
         BtnWatierUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnWatierUpdateActionPerformed(evt);
@@ -128,6 +128,7 @@ public class AwaitedDishListWaiterView extends javax.swing.JPanel {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -137,9 +138,16 @@ public class AwaitedDishListWaiterView extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(AwaitedDishLstWaiterTable);

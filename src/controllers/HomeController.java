@@ -31,6 +31,8 @@ public class HomeController {
     private AwaitedDishListChefController awaitedDishListChefController;
     private AwaitedDishListWaiterController awaitedDishListWaiterController;
     private OrderController orderController;
+    private SalaryReportController salaryReportController;
+    private AccountSettingController accountSettingController;
 
     public HomeController() {
         this.homeView = new HomeView();
@@ -43,9 +45,10 @@ public class HomeController {
         ingredientImportController = new IngredientImportController();
         awaitedDishListChefController = new AwaitedDishListChefController();
         awaitedDishListWaiterController = new AwaitedDishListWaiterController();
-        orderController =  new OrderController();
+        orderController = new OrderController();
+        salaryReportController = new SalaryReportController();
+        accountSettingController = new AccountSettingController();
 
-        
         JFrame jframe = new JFrame();
         //jframe.setSize(900, 500);
         jframe.setLocationRelativeTo(null);
@@ -78,6 +81,8 @@ public class HomeController {
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
                 homeView.getTabHome().addTab("Nhập Nguyên Liệu", ingredientImportController.getPanel());
                 homeView.getTabHome().addTab("Danh Sách Món Chờ", awaitedDishListChefController.getPanel());
+                homeView.getTabHome().addTab("Xem lương", salaryReportController.getPanel());
+                homeView.getTabHome().addTab("Thông tin cá nhân", accountSettingController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
                 break;
             }
@@ -85,20 +90,25 @@ public class HomeController {
                 homeView.getTabHome().addTab("Gọi món", orderController.getPanel());
                 homeView.getTabHome().addTab("Chấm công", timekeepingController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
+                homeView.getTabHome().addTab("Xem lương", salaryReportController.getPanel());
+                homeView.getTabHome().addTab("Thông tin cá nhân", accountSettingController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
                 break;
             }
             case 3: {
-                homeView.getTabHome().addTab("Danh Sách Món Chờ", new AwaitedDishListWaiterController().getPanel());
+                homeView.getTabHome().addTab("Danh Sách Món Chờ", awaitedDishListWaiterController.getPanel());
                 homeView.getTabHome().addTab("Chấm công", timekeepingController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
+                homeView.getTabHome().addTab("Xem lương", salaryReportController.getPanel());
+                homeView.getTabHome().addTab("Thông tin cá nhân", accountSettingController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
                 break;
             }
-            case 4:{
+            case 4: {
                 homeView.getTabHome().addTab("Quản lý", managementController.getPanel());
                 homeView.getTabHome().addTab("Thống kê", statisticController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
+                homeView.getTabHome().addTab("Thông tin cá nhân", accountSettingController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
                 break;
             }
@@ -126,6 +136,12 @@ public class HomeController {
                         awaitedDishListChefController.loadData();
                         break;
                     case 4:
+                        salaryReportController.loadData();
+                        break;
+                    case 5:
+                        accountSettingController.loadData();
+                        break;
+                    case 6:
                         logOutController.loadData();
                         break;
                     default:
@@ -142,6 +158,12 @@ public class HomeController {
                         changePasswordController.loadData();
                         break;
                     case 2:
+                        salaryReportController.loadData();
+                        break;
+                    case 3:
+                        accountSettingController.loadData();
+                        break;
+                    case 4:
                         logOutController.loadData();
                         break;
                     default:
@@ -161,6 +183,12 @@ public class HomeController {
                         changePasswordController.loadData();
                         break;
                     case 3:
+                        salaryReportController.loadData();
+                        break;
+                    case 4:
+                        accountSettingController.loadData();
+                        break;
+                    case 5:
                         logOutController.loadData();
                         break;
                     default:
@@ -180,6 +208,9 @@ public class HomeController {
                         changePasswordController.loadData();
                         break;
                     case 3:
+                        accountSettingController.loadData();
+                        break;
+                    case 4:
                         logOutController.loadData();
                         break;
                     default:

@@ -8,6 +8,7 @@ package controllers;
 import java.awt.ComponentOrientation;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -55,7 +56,11 @@ public class AwaitedDishListWaiterController implements BaseController{
 
     @Override
     public void loadData() {
+        DefaultTableModel listModel = (DefaultTableModel) awaitedDishListWaiterView.getAwaitedDishLstWaiterTable().getModel();
         
+        for (int i = listModel.getRowCount() - 1; i >= 0; i--) {
+            listModel.removeRow(i);
+        }
     }
     
 
@@ -77,7 +82,7 @@ public class AwaitedDishListWaiterController implements BaseController{
         }
 
         for (ReceiptDetail item : receiptDetails) {
-            if (item.isServed() == false) {
+            if (item.isServed() == false && item.isMade() == true) {
                 MenuItem menuItem = new MenuItem();
                 MenuCategory mc = new MenuCategory();   // mc.getCategoryName()
                 Receipt hd = new Receipt();
@@ -109,12 +114,12 @@ public class AwaitedDishListWaiterController implements BaseController{
                 }
 
                 Object[] rowData = new Object[]{
-                    item.getId(), // ID cua ReceiptDetail
-                    menuItem.getItemName(), // Ten mon
-                    mc.getCategoryName(), // Danh muc mon
-                    item.getQuantity(), // So luong
-                    ban.getTableName(), // Ban  
-                    hd.getArrivedTime() // Thoi gian
+                    item.getId(),               // ID cua ReceiptDetail
+                    menuItem.getItemName(),     // Ten mon
+                    mc.getCategoryName(),       // Danh muc mon
+                    item.getQuantity(),         // So luong
+                    ban.getTableName(),         // Ban  
+                    hd.getArrivedTime()         // Thoi gian
                 };
                 listModel.addRow(rowData);
             }
@@ -126,6 +131,12 @@ public class AwaitedDishListWaiterController implements BaseController{
         DefaultTableModel listModel = (DefaultTableModel) awaitedDishListWaiterView.getAwaitedDishLstWaiterTable().getModel();
 
         int rowSelected = awaitedDishListWaiterView.getAwaitedDishLstWaiterTable().getSelectedRow();
+        
+        if (rowSelected == -1)
+        {
+            JOptionPane.showMessageDialog(null, "Chọn một hàng trước");
+            return;
+        }
 
         int id = (int) awaitedDishListWaiterView.getAwaitedDishLstWaiterTable().getValueAt(rowSelected, 0);
 

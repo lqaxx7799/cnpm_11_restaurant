@@ -89,15 +89,6 @@ public class AwaitedDishListChefView extends javax.swing.JPanel {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -114,7 +105,7 @@ public class AwaitedDishListChefView extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(AwaitedDishLstTable);
 
-        BtnUpdate.setText("Cập nhật");
+        BtnUpdate.setText("Làm mới");
         BtnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnUpdateActionPerformed(evt);

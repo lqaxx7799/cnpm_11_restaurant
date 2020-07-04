@@ -47,6 +47,7 @@ public class IngredientManagementController implements BaseController {
         setButtonState(true);
         setFormState(true);
         DefaultTableModel listModel = (DefaultTableModel) ingredientManagementView.getIngredientManagementTable().getModel();
+        // Lấy hàng được chọn
         int rowSelected = ingredientManagementView.getIngredientManagementTable().getSelectedRow();
         if (rowSelected == -1)
         {
@@ -55,7 +56,9 @@ public class IngredientManagementController implements BaseController {
             return;
         }
         setButtonState(false);
+        // Lấy ID
         int id = (int) ingredientManagementView.getIngredientManagementTable().getValueAt(rowSelected, 0);
+        // Truy xuất CSDL Ingredient theo ID
         ArrayList<Ingredient> ingredientList = ingredientService.getAll();
         for (Ingredient item : ingredientList)
         {
@@ -102,11 +105,14 @@ public class IngredientManagementController implements BaseController {
         DefaultTableModel listModel = (DefaultTableModel) ingredientManagementView.getIngredientManagementTable().getModel();
 
         ArrayList<Ingredient> ingredientList = ingredientService.getAll();
-        if (actionType.equals("edit")) 
+        
+        if (actionType.equals("edit")) // EDIT
         {
             int rowSelected = ingredientManagementView.getIngredientManagementTable().getSelectedRow();
             int id = (int) ingredientManagementView.getIngredientManagementTable().getValueAt(rowSelected, 0);
+            //Truy xuất CSDL theo ID để lấy bản ghi
             Ingredient item = ingredientService.getById(id);
+            
             String newName = ingredientManagementView.getIngredientNameTextField().getText();
             String unit = ingredientManagementView.getUnitTextField().getText();
             String regex = "^[a-zA-Z]{1,}$";
@@ -115,7 +121,6 @@ public class IngredientManagementController implements BaseController {
                 JOptionPane.showMessageDialog(null, "Chưa nhập tên nguyên liệu!");
                 return;
             }
-            
             
             if(unit.equals("")){
                 JOptionPane.showMessageDialog(null, "Chưa nhập đơn vị!");
@@ -144,7 +149,7 @@ public class IngredientManagementController implements BaseController {
             loadData();
             return;
         } 
-        else if (actionType.equals("add"))
+        else if (actionType.equals("add")) // ADD
         {
             Ingredient newIngredient = new Ingredient();
             String a = ingredientManagementView.getIngredientNameTextField().getText();

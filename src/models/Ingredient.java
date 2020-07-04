@@ -5,6 +5,7 @@ public class Ingredient {
     private int id;
     private String ingredientName;
     private String unit;
+    private boolean isAvailable;
 
     public int getId() {
         return id;
@@ -29,5 +30,15 @@ public class Ingredient {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
+    public boolean isIsAvailable() {
+        return isAvailable;
+    }
+
+    public void setIsAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+    
+    
 
 }
