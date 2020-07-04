@@ -100,6 +100,31 @@ public class TimekeepingService {
             return null;
         }
     }
+    
+    public ArrayList<Timekeeping> getByAccountId(int accountId) {
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+            String query = "select * from timekeepings where account_id = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1, accountId);
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<Timekeeping> list = new ArrayList<>();
+            while (rs.next()) {
+                Timekeeping timekeeping = new Timekeeping();
+                timekeeping.setId(rs.getInt(1));
+                timekeeping.setAccountId(rs.getInt(2));
+                timekeeping.setInTime(rs.getTimestamp(3));
+                timekeeping.setOutTime(rs.getTimestamp(4));
+                list.add(timekeeping);
+            }
+            stmt.close();
+            connection.close();
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public int insert(Timekeeping timekeeping) {
         try {
