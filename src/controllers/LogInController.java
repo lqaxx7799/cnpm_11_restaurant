@@ -27,7 +27,7 @@ public class LogInController {
     public LogInController() {
         accountService = new AccountService();
         this.logInView = new LogInView();
-        
+
         logInView.getLblMessage().setText("");
 
         logInView.getBtnLogIn().addActionListener(e -> logInHandler());
@@ -45,14 +45,14 @@ public class LogInController {
     public void initController() {
         logInFrame.setVisible(true);
     }
-    
-    public JFrame getFrame(){
+
+    public JFrame getFrame() {
         return logInFrame;
     }
 
     private void logInHandler() {
         String email = logInView.getTxtEmail().getText();
-        String password = logInView.getTxtPassword().getText();
+        String password = new String(logInView.getTxtPassword().getPassword());
         logInView.getLblMessage().setText("");
 
         ArrayList<Account> accounts = accountService.getAll();

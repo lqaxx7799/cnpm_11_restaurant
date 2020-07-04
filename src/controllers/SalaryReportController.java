@@ -60,12 +60,13 @@ public class SalaryReportController implements BaseController {
 
     private void checkSalary() {
         salaryReportView.getLblErrMessage().setText("");
-        
+
         ArrayList<SalaryInformation> salaryInformations = salaryInformationService.getByAccountId(App.currentAccount.getId());
         SalaryInformation salaryInformation = null;
         for (SalaryInformation si : salaryInformations) {
             if (si.getToDate() == null) {
                 salaryInformation = si;
+                break;
             }
         }
 
@@ -121,6 +122,7 @@ public class SalaryReportController implements BaseController {
             timekeepingModel.removeRow(i);
         }
 
+        int countActualTimekeeping = 0;
         for (Date timeKey : timeKeys) {
             boolean isFound = false;
             for (Timekeeping timekeeping : timekeepings) {
@@ -138,6 +140,7 @@ public class SalaryReportController implements BaseController {
                     };
                     timekeepingModel.addRow(rowData);
                     isFound = true;
+                    countActualTimekeeping++;
                     break;
                 }
             }
@@ -153,8 +156,15 @@ public class SalaryReportController implements BaseController {
                 timekeepingModel.addRow(rowData);
             }
         }
-        
-        salaryReportView.getPnlSalaryReport().setVisible(true);
+
+        if (salaryInformation != null) {
+            salaryReportView.getPnlSalaryReport().setVisible(true);
+            salaryReportView.getLblTime().setText("Tháng " + month + "/" + year);
+            salaryReportView.getLblStandardTimekeeping().setText(String.valueOf(timeKeys.size()));
+            salaryReportView.getLblActualTimekeeping().setText(String.valueOf(countActualTimekeeping));
+            salaryReportView.getLblStandardSalary().setText(CommonUltilities.formatCurrency(salaryInformation.getSalary()));
+            salaryReportView.getLblActualSalary().setText(CommonUltilities.formatCurrency(countActualTimekeeping / timeKeys.size()));
+        }
     }
 
 }

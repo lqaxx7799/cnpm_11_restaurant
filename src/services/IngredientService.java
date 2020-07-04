@@ -34,6 +34,7 @@ public class IngredientService {
                 ingredient.setId(rs.getInt(1));
                 ingredient.setIngredientName(rs.getString(2));
                 ingredient.setUnit(rs.getString(3));
+                ingredient.setIsAvailable(rs.getBoolean(4));
                 list.add(ingredient);
             }
             stmt.close();
@@ -57,6 +58,7 @@ public class IngredientService {
                 ingredient.setId(rs.getInt(1));
                 ingredient.setIngredientName(rs.getString(2));
                 ingredient.setUnit(rs.getString(3));
+                ingredient.setIsAvailable(rs.getBoolean(4));
                 stmt.close();
                 connection.close();
                 return ingredient;
@@ -74,10 +76,11 @@ public class IngredientService {
         try {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
-            String query = "insert into ingredients (ingredient_name, unit) values (?,?)";
+            String query = "insert into ingredients (ingredient_name, unit, is_available) values (?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, ingredient.getIngredientName());
             stmt.setString(2, ingredient.getUnit());
+            stmt.setBoolean(3, ingredient.isIsAvailable());
             int rs = stmt.executeUpdate();
             stmt.close();
             connection.close();
@@ -91,11 +94,12 @@ public class IngredientService {
     public int update(Ingredient ingredient) {
         try {
             Connection connection = ConnectionFactory.getConnection();
-            String query = "update ingredients set ingredient_name = ?, unit = ? where id = ?";
+            String query = "update ingredients set ingredient_name = ?, unit = ?, is_available = ? where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, ingredient.getIngredientName());
             stmt.setString(2, ingredient.getUnit());
-            stmt.setInt(3, ingredient.getId());
+            stmt.setBoolean(3, ingredient.isIsAvailable());
+            stmt.setInt(4, ingredient.getId());
             int rs = stmt.executeUpdate();
             stmt.close();
             connection.close();
