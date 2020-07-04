@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controllers.statistics;
 
+import controllers.BaseController;
 import java.awt.Dimension;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -35,7 +36,7 @@ import org.jfree.data.xy.XYDataset;
 import services.ReceiptDetailService;
 import services.ReceiptService;
 import utils.CommonUltilities;
-import views.RevenueStatisticView;
+import views.statistics.RevenueStatisticView;
 
 /**
  *

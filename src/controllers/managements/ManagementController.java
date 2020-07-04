@@ -3,11 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controllers.managements;
 
+import controllers.BaseController;
+import controllers.managements.IngredientManagementController;
+import controllers.managements.MenuItemManagementController;
+import controllers.managements.MenuCategoryManagementController;
+import controllers.managements.AccountManagementController;
+import controllers.managements.TableManagementController;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
-import views.ManagementView;
+import views.managements.ManagementView;
 
 /**
  *

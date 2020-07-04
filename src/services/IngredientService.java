@@ -34,7 +34,7 @@ public class IngredientService {
                 ingredient.setId(rs.getInt(1));
                 ingredient.setIngredientName(rs.getString(2));
                 ingredient.setUnit(rs.getString(3));
-                ingredient.setIsAvailable(rs.getBoolean(4));
+                ingredient.setAvailable(rs.getBoolean(4));
                 list.add(ingredient);
             }
             stmt.close();
@@ -58,7 +58,7 @@ public class IngredientService {
                 ingredient.setId(rs.getInt(1));
                 ingredient.setIngredientName(rs.getString(2));
                 ingredient.setUnit(rs.getString(3));
-                ingredient.setIsAvailable(rs.getBoolean(4));
+                ingredient.setAvailable(rs.getBoolean(4));
                 stmt.close();
                 connection.close();
                 return ingredient;
@@ -80,7 +80,7 @@ public class IngredientService {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, ingredient.getIngredientName());
             stmt.setString(2, ingredient.getUnit());
-            stmt.setBoolean(3, ingredient.isIsAvailable());
+            stmt.setBoolean(3, ingredient.isAvailable());
             int rs = stmt.executeUpdate();
             stmt.close();
             connection.close();
@@ -98,7 +98,7 @@ public class IngredientService {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, ingredient.getIngredientName());
             stmt.setString(2, ingredient.getUnit());
-            stmt.setBoolean(3, ingredient.isIsAvailable());
+            stmt.setBoolean(3, ingredient.isAvailable());
             stmt.setInt(4, ingredient.getId());
             int rs = stmt.executeUpdate();
             stmt.close();

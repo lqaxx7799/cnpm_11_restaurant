@@ -5,6 +5,7 @@ public class Table {
     private int id;
     private String tableName;
     private boolean isOccupied;
+    private boolean isAvailable;
 
     public int getId() {
         return id;
@@ -30,4 +31,13 @@ public class Table {
         this.isOccupied = isOccupied;
     }
 
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+
+    
 }

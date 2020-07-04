@@ -34,6 +34,7 @@ public class TableService {
                 table.setId(rs.getInt(1));
                 table.setTableName(rs.getString(2));
                 table.setOccupied(rs.getBoolean(3));
+                table.setAvailable(rs.getBoolean(4));
                 list.add(table);
             }
             stmt.close();
@@ -44,7 +45,7 @@ public class TableService {
             return new ArrayList<>();
         }
     }
-    
+
     public Table getById(int id) {
         try {
             Connection connection = ConnectionFactory.getConnection();
@@ -57,6 +58,7 @@ public class TableService {
                 table.setId(rs.getInt(1));
                 table.setTableName(rs.getString(2));
                 table.setOccupied(rs.getBoolean(3));
+                table.setAvailable(rs.getBoolean(4));
                 stmt.close();
                 connection.close();
                 return table;
@@ -73,10 +75,11 @@ public class TableService {
     public int insert(Table table) {
         try {
             Connection connection = ConnectionFactory.getConnection();
-            String query = "insert into tables (table_name, is_occupied) values (?,?)";
+            String query = "insert into tables (table_name, is_occupied, is_available) values (?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, table.getTableName());
             stmt.setBoolean(2, table.isOccupied());
+            stmt.setBoolean(3, table.isAvailable());
             int rs = stmt.executeUpdate();
             stmt.close();
             connection.close();
@@ -91,12 +94,13 @@ public class TableService {
         try {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Connection connection = ConnectionFactory.getConnection();
-            String query = "update tables set table_name = ?, is_occupied = ? "
+            String query = "update tables set table_name = ?, is_occupied = ?, is_available = ? "
                     + "where id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, table.getTableName());
             stmt.setBoolean(2, table.isOccupied());
-            stmt.setInt(3, table.getId());
+            stmt.setBoolean(3, table.isAvailable());
+            stmt.setInt(4, table.getId());
             int rs = stmt.executeUpdate();
             stmt.close();
             connection.close();

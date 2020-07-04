@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controllers.statistics;
 
+import controllers.BaseController;
+import controllers.statistics.ExpenseStatisticController;
+import controllers.statistics.MenuItemStatisticController;
+import controllers.statistics.RevenueStatisticController;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
-import views.StatisticView;
+import views.statistics.StatisticView;
 
 /**
  *

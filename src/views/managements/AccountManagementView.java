@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package views;
+package views.managements;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -43,14 +43,6 @@ public class AccountManagementView extends javax.swing.JPanel {
 
     public void setBtnAddNew(JButton btnAddNew) {
         this.btnAddNew = btnAddNew;
-    }
-
-    public JButton getBtnDelete() {
-        return btnDelete;
-    }
-
-    public void setBtnDelete(JButton btnDelete) {
-        this.btnDelete = btnDelete;
     }
 
     public JButton getBtnEdit() {
@@ -284,7 +276,6 @@ public class AccountManagementView extends javax.swing.JPanel {
         tblAccount = new javax.swing.JTable();
         btnAddNew = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         btnSubmit = new javax.swing.JButton();
         btnViewSalary = new javax.swing.JButton();
@@ -339,8 +330,6 @@ public class AccountManagementView extends javax.swing.JPanel {
         btnAddNew.setText("Thêm mới");
 
         btnEdit.setText("Sửa");
-
-        btnDelete.setText("Xóa");
 
         btnCancel.setText("Hủy");
 
@@ -502,8 +491,6 @@ public class AccountManagementView extends javax.swing.JPanel {
                         .addComponent(btnAddNew, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnViewSalary)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -516,7 +503,6 @@ public class AccountManagementView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddNew)
                     .addComponent(btnEdit)
-                    .addComponent(btnDelete)
                     .addComponent(btnViewSalary))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
@@ -535,7 +521,6 @@ public class AccountManagementView extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddNew;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnViewSalary;

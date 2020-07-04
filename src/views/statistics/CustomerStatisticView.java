@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package views;
+package views.statistics;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,12 +18,12 @@ import javax.swing.JTextField;
  *
  * @author Admin
  */
-public class ExpenseStatisticView extends javax.swing.JPanel {
+public class CustomerStatisticView extends javax.swing.JPanel {
 
     /**
      * Creates new form RevenueStatisticView
      */
-    public ExpenseStatisticView() {
+    public CustomerStatisticView() {
         initComponents();
     }
 
@@ -123,12 +123,12 @@ public class ExpenseStatisticView extends javax.swing.JPanel {
         this.jSplitPane2 = jSplitPane2;
     }
 
-    public JTable getTblExpenseStatistic() {
-        return tblExpenseStatistic;
+    public JTable getTblCustomerStatistic() {
+        return tblCustomerStatistic;
     }
 
-    public void setTblExpenseStatistic(JTable tblExpenseStatistic) {
-        this.tblExpenseStatistic = tblExpenseStatistic;
+    public void setTblCustomerStatistic(JTable tblCustomerStatistic) {
+        this.tblCustomerStatistic = tblCustomerStatistic;
     }
 
     public JTextField getTxtFromDate() {
@@ -179,12 +179,12 @@ public class ExpenseStatisticView extends javax.swing.JPanel {
         this.lblTimeRange = lblTimeRange;
     }
 
-    public JLabel getLblTotalExpense() {
-        return lblTotalExpense;
+    public JLabel getLblTotalNewCustomer() {
+        return lblTotalNewCustomer;
     }
 
-    public void setLblTotalExpense(JLabel lblTotalExpense) {
-        this.lblTotalExpense = lblTotalExpense;
+    public void setLblTotalNewCustomer(JLabel lblTotalNewCustomer) {
+        this.lblTotalNewCustomer = lblTotalNewCustomer;
     }
 
     public JPanel getPnlInformation() {
@@ -247,12 +247,12 @@ public class ExpenseStatisticView extends javax.swing.JPanel {
         jSplitPane1 = new javax.swing.JSplitPane();
         pnlTable = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblExpenseStatistic = new javax.swing.JTable();
+        tblCustomerStatistic = new javax.swing.JTable();
         pnlInformation = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblTimeRange = new javax.swing.JLabel();
-        lblTotalExpense = new javax.swing.JLabel();
+        lblTotalNewCustomer = new javax.swing.JLabel();
         pnlChart = new javax.swing.JPanel();
 
         jSplitPane2.setDividerLocation(200);
@@ -334,16 +334,16 @@ public class ExpenseStatisticView extends javax.swing.JPanel {
         jSplitPane1.setDividerLocation(250);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        tblExpenseStatistic.setModel(new javax.swing.table.DefaultTableModel(
+        tblCustomerStatistic.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "STT", "Thời gian", "Chi phí"
+                "STT", "Thời gian", "Số khách hàng mới"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -357,15 +357,15 @@ public class ExpenseStatisticView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblExpenseStatistic);
+        jScrollPane1.setViewportView(tblCustomerStatistic);
 
         jLabel6.setText("Khoảng thời gian:");
 
-        jLabel8.setText("Tổng chi phí:");
+        jLabel8.setText("Tổng khách hàng mới:");
 
         lblTimeRange.setText("jLabel7");
 
-        lblTotalExpense.setText("jLabel7");
+        lblTotalNewCustomer.setText("jLabel7");
 
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
         pnlInformation.setLayout(pnlInformationLayout);
@@ -378,9 +378,9 @@ public class ExpenseStatisticView extends javax.swing.JPanel {
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTotalExpense)
+                    .addComponent(lblTotalNewCustomer)
                     .addComponent(lblTimeRange))
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         pnlInformationLayout.setVerticalGroup(
             pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,7 +392,7 @@ public class ExpenseStatisticView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(lblTotalExpense))
+                    .addComponent(lblTotalNewCustomer))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -474,11 +474,11 @@ public class ExpenseStatisticView extends javax.swing.JPanel {
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JLabel lblErrFilter;
     private javax.swing.JLabel lblTimeRange;
-    private javax.swing.JLabel lblTotalExpense;
+    private javax.swing.JLabel lblTotalNewCustomer;
     private javax.swing.JPanel pnlChart;
     private javax.swing.JPanel pnlInformation;
     private javax.swing.JPanel pnlTable;
-    private javax.swing.JTable tblExpenseStatistic;
+    private javax.swing.JTable tblCustomerStatistic;
     private javax.swing.JTextField txtFromDate;
     private javax.swing.JTextField txtToDate;
     // End of variables declaration//GEN-END:variables
