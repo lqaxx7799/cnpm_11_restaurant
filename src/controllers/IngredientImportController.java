@@ -55,7 +55,7 @@ public class IngredientImportController implements BaseController {
         }
         ingredientImportView.getCbIngredientList().setModel(new DefaultComboBoxModel<String>(ingredientName.toArray(new String[0])));
         ingredientImportView.getTxtMessage().setText("");
-        ingredientImportView.getLblUnit().setText(ingredientList.get(0).getUnit());
+        ingredientImportView.getLblUnit().setText(ingredientList.isEmpty() ? "" : ingredientList.get(0).getUnit());
     }
 
     private void onIngredientChange() {
