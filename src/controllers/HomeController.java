@@ -47,7 +47,6 @@ public class HomeController {
         orderController =  new OrderController();
         salaryReportController = new SalaryReportController();
 
-
         JFrame jframe = new JFrame();
         jframe.setSize(900, 500);
         jframe.setLocationRelativeTo(null);
