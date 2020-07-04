@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,6 +17,7 @@ import views.OrderWaitingListView;
  *
  * @author Admin
  */
+
 public class HomeController {
 
     private HomeView homeView;

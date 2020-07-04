@@ -15,11 +15,13 @@ import views.LogInView;
  *
  * @author Admin
  */
+
 public class App {
 
     /**
      * @param args the command line arguments
      */
+    
     public static Account currentAccount = null;
     
     public static void main(String[] args) {
