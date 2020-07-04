@@ -28,6 +28,8 @@ public class ManagementController implements BaseController {
         accountManagementController = new AccountManagementController();
         ingredientManagementController = new IngredientManagementController();
         tableManagementController = new TableManagementController();
+        menuCategoryManagementController = new MenuCategoryManagementController();
+        menuItemManagementController = new MenuItemManagementController();
 
         managementView.getTabManagement().addTab("Tài khoản", accountManagementController.getPanel());
         managementView.getTabManagement().addTab("Nguyên Liệu", ingredientManagementController.getPanel());
