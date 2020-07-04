@@ -8,6 +8,7 @@ package controllers;
 import java.awt.ComponentOrientation;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -29,11 +30,12 @@ import views.AwaitedDishListChefView;
  */
 public class AwaitedDishListChefController  implements BaseController{
 
-    // Lay isMade trong ReceiptDetail .
+    // Lay isMade trong ReceiptDetail.
     // Lây categoryName trong MenuCategory (Danh muc mon)
     // Lay quantity trong ReceiptDetail .
     // Lay tableID trong Receipt xong lấy tên bàn trong Table
     // Lay ArrivedTime trong Receipt
+    
     private AwaitedDishListChefView awaitedDishListChefView;
     private ReceiptDetailService receiptDetailService;
     private MenuItemService menuItemService;
@@ -52,7 +54,7 @@ public class AwaitedDishListChefController  implements BaseController{
         awaitedDishListChefView.getBtnUpdate().addActionListener(al -> updateHandler());
         awaitedDishListChefView.getBtnDone().addActionListener(al -> doneHandler());
     }
-
+    
     
     @Override
     public JPanel getPanel() {
@@ -62,16 +64,6 @@ public class AwaitedDishListChefController  implements BaseController{
     @Override
     public void loadData() {
         DefaultTableModel listModel = (DefaultTableModel) awaitedDishListChefView.getAwaitedDishLstTable().getModel();
-
-        ArrayList<ReceiptDetail> receiptDetails = receiptDetailService.getAll(); // CSDL receiptDetails
-
-        ArrayList<MenuItem> menuItems = menuItemService.getAll();  // CSDL menuItems
-
-        ArrayList<MenuCategory> menuCategorys = menuCategoryService.getAll(); // CSDL menuCategory
-
-        ArrayList<Receipt> receipts = receiptService.getAll();      // CSDL receipt
-
-        ArrayList<Table> tables = tableService.getAll(); // CSDL table
 
         for (int i = listModel.getRowCount() - 1; i >= 0; i--) {
             listModel.removeRow(i);
@@ -96,14 +88,14 @@ public class AwaitedDishListChefController  implements BaseController{
         }
 
         for (ReceiptDetail item : receiptDetails) {
-            if (item.isMade() == false) {
+            if (item.isMade() == false) {          // Nếu chưa được làm
                 MenuItem menuItem = new MenuItem();
                 MenuCategory mc = new MenuCategory();   // mc.getCategoryName()
                 Receipt hd = new Receipt();
                 Table ban = new Table();
 
-                for (Receipt hdTemp : receipts) {
-                    if (item.getReceiptId() == hdTemp.getId()) {
+                for (Receipt hdTemp : receipts) { 
+                    if (item.getReceiptId() == hdTemp.getId()) { 
                         hd = hdTemp;
                         for (Table banTemp : tables) {
                             if (hd.getTableId() == banTemp.getId()) {
@@ -128,12 +120,12 @@ public class AwaitedDishListChefController  implements BaseController{
                 }
 
                 Object[] rowData = new Object[]{
-                    item.getId(), // ID cua ReceiptDetail
-                    menuItem.getItemName(), // Ten mon
-                    mc.getCategoryName(), // Danh muc mon
-                    item.getQuantity(), // So luong
-                    ban.getTableName(), // Ban  
-                    hd.getArrivedTime() // Thoi gian
+                    item.getId(),           // ID cua           ReceiptDetail. 
+                    menuItem.getItemName(), // Ten mon.         MenuItem
+                    mc.getCategoryName(),   // Danh muc mon.    MenuCategory
+                    item.getQuantity(),     // So luong.        ReceiptDetail
+                    ban.getTableName(),     // Ban.             Table
+                    hd.getArrivedTime()     // Thoi gian        Receipt
                 };
                 listModel.addRow(rowData);
             }
@@ -145,6 +137,13 @@ public class AwaitedDishListChefController  implements BaseController{
         DefaultTableModel listModel = (DefaultTableModel) awaitedDishListChefView.getAwaitedDishLstTable().getModel();
         
         int rowSelected = awaitedDishListChefView.getAwaitedDishLstTable().getSelectedRow();
+        
+        if(rowSelected == -1)
+        {
+            JOptionPane.showMessageDialog(null, "Chọn một hàng trước");
+            return;
+        }
+            
         
         int id = (int) awaitedDishListChefView.getAwaitedDishLstTable().getValueAt(rowSelected, 0);
         
