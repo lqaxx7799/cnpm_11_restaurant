@@ -180,7 +180,7 @@ public class OrderController implements BaseController{
         orderView.getjPanel3().setPreferredSize(new Dimension(400,h*100));
         for(Table item : tableList){
             JButton btn = new JButton();
-            btn.setPreferredSize(new Dimension(200,190));
+            btn.setPreferredSize(new Dimension(200,180));
             btn.setText(item.getTableName());
             if(item.isOccupied()){
                 btn.setBackground(Color.red);
