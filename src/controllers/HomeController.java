@@ -6,12 +6,12 @@
 package controllers;
 
 import app.App;
+import java.awt.Frame;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import javax.swing.event.ChangeEvent;
 import views.HomeView;
-import views.OrderWaitingListView;
 
 /**
  *
@@ -31,6 +31,7 @@ public class HomeController {
     private IngredientImportController ingredientImportController;
     private AwaitedDishListChefController awaitedDishListChefController;
     private AwaitedDishListWaiterController awaitedDishListWaiterController;
+    private OrderController orderController;
 
     public HomeController() {
         this.homeView = new HomeView();
@@ -43,9 +44,15 @@ public class HomeController {
         ingredientImportController = new IngredientImportController();
         awaitedDishListChefController = new AwaitedDishListChefController();
         awaitedDishListWaiterController = new AwaitedDishListWaiterController();
+        orderController =  new OrderController();
+
         
         JFrame jframe = new JFrame();
-        jframe.setSize(600, 400);
+        jframe.setSize(900, 500);
+        jframe.setLocationRelativeTo(null);
+        jframe.setResizable(false);
+//      jframe.setSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        jframe.setExtendedState(Frame.MAXIMIZED_BOTH);
         jframe.add(homeView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -78,6 +85,7 @@ public class HomeController {
                 break;
             }
             case 2: {
+                homeView.getTabHome().addTab("Gọi món", orderController.getPanel());
                 homeView.getTabHome().addTab("Chấm công", timekeepingController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
@@ -90,7 +98,7 @@ public class HomeController {
                 homeView.getTabHome().addTab("Đăng xuất", logOutController.getPanel());
                 break;
             }
-            case 4: {
+            case 4:{
                 homeView.getTabHome().addTab("Quản lý", managementController.getPanel());
                 homeView.getTabHome().addTab("Thống kê", statisticController.getPanel());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", changePasswordController.getPanel());

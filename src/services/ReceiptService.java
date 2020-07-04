@@ -46,7 +46,7 @@ public class ReceiptService {
             return new ArrayList<>();
         }
     }
-
+    
     public Receipt getById(int id) {
         try {
             Connection connection = ConnectionFactory.getConnection();

@@ -45,6 +45,26 @@ public class MenuCategoryService {
         }
     }
 
+    public ArrayList<String> getNameAll() {
+        try {
+            Connection connection = ConnectionFactory.getConnection();
+            Statement stmt = connection.createStatement();
+            String query = "select category_name from menu_categories";
+            ResultSet rs = stmt.executeQuery(query);
+            ArrayList<String> list = new ArrayList<>();
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }
+            stmt.close();
+            connection.close();
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    
+    
     public MenuCategory getById(int id) {
         try {
             Connection connection = ConnectionFactory.getConnection();

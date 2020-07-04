@@ -20,16 +20,22 @@ public class ManagementController implements BaseController {
     private AccountManagementController accountManagementController;
     private IngredientManagementController ingredientManagementController;
     private TableManagementController tableManagementController;
+    private MenuItemManagementController menuItemManagementController;
+    private MenuCategoryManagementController menuCategoryManagementController; 
 
     public ManagementController() {
         managementView = new ManagementView();
         accountManagementController = new AccountManagementController();
         ingredientManagementController = new IngredientManagementController();
         tableManagementController = new TableManagementController();
+        menuCategoryManagementController = new MenuCategoryManagementController();
+        menuItemManagementController = new MenuItemManagementController();
 
         managementView.getTabManagement().addTab("Tài khoản", accountManagementController.getPanel());
         managementView.getTabManagement().addTab("Nguyên Liệu", ingredientManagementController.getPanel());
         managementView.getTabManagement().addTab("Bàn", tableManagementController.getPanel());
+        managementView.getTabManagement().addTab("Món ăn", menuItemManagementController.getPanel());
+        managementView.getTabManagement().addTab("Danh mục món", menuCategoryManagementController.getPanel());
 
         managementView.getTabManagement().addChangeListener(e -> changeTab(e));
     }
