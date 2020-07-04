@@ -9,7 +9,6 @@ import app.App;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import views.HomeView;
-import views.OrderWaitingListView;
 
 /**
  *
@@ -24,7 +23,9 @@ public class HomeController {
         this.homeView = new HomeView();
 
         JFrame jframe = new JFrame();
-        jframe.setSize(600, 400);
+        jframe.setSize(900, 500);
+        jframe.setLocationRelativeTo(null);
+        jframe.setResizable(false);
         jframe.add(homeView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -55,6 +56,7 @@ public class HomeController {
                 homeView.getTabHome().addTab("Waited Order", new OrderWaitingListController().initController());
                 homeView.getTabHome().addTab("Chấm công", new TimeKeepingController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+                homeView.getTabHome().addTab("Gọi món", new OrderController().initController());
                 break;
             }
             case 3: {
@@ -70,6 +72,8 @@ public class HomeController {
                 homeView.getTabHome().addTab("Quản lý", new ManagementController().initController());
                 homeView.getTabHome().addTab("Thống kê", new StatisticController().initController());
                 homeView.getTabHome().addTab("Thay đổi mật khẩu", new ChangePasswordController().initController());
+                homeView.getTabHome().addTab("Quản lý món ăn", new MenuItemManagementController().InitController());
+                homeView.getTabHome().addTab("Quản lý danh mục món", new MenuCategoryManagementController().InitController());
                 break;
             }
             default: {
