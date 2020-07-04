@@ -47,10 +47,8 @@ public class HomeController {
 
         
         JFrame jframe = new JFrame();
-        jframe.setSize(900, 500);
+        //jframe.setSize(900, 500);
         jframe.setLocationRelativeTo(null);
-        jframe.setResizable(false);
-//      jframe.setSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
         jframe.setExtendedState(Frame.MAXIMIZED_BOTH);
         jframe.add(homeView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
