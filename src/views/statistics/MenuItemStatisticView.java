@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package views;
+package views.statistics;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,12 +18,12 @@ import javax.swing.JTextField;
  *
  * @author Admin
  */
-public class RevenueStatisticView extends javax.swing.JPanel {
+public class MenuItemStatisticView extends javax.swing.JPanel {
 
     /**
      * Creates new form RevenueStatisticView
      */
-    public RevenueStatisticView() {
+    public MenuItemStatisticView() {
         initComponents();
     }
 
@@ -33,14 +33,6 @@ public class RevenueStatisticView extends javax.swing.JPanel {
 
     public void setBtnFilter(JButton btnFilter) {
         this.btnFilter = btnFilter;
-    }
-
-    public JComboBox<String> getCbxPeriod() {
-        return cbxPeriod;
-    }
-
-    public void setCbxPeriod(JComboBox<String> cbxPeriod) {
-        this.cbxPeriod = cbxPeriod;
     }
 
     public JComboBox<String> getCbxTimeRange() {
@@ -73,14 +65,6 @@ public class RevenueStatisticView extends javax.swing.JPanel {
 
     public void setjLabel3(JLabel jLabel3) {
         this.jLabel3 = jLabel3;
-    }
-
-    public JLabel getjLabel4() {
-        return jLabel4;
-    }
-
-    public void setjLabel4(JLabel jLabel4) {
-        this.jLabel4 = jLabel4;
     }
 
     public JLabel getjLabel5() {
@@ -123,14 +107,6 @@ public class RevenueStatisticView extends javax.swing.JPanel {
         this.jSplitPane2 = jSplitPane2;
     }
 
-    public JTable getTblRevenueStatistic() {
-        return tblRevenueStatistic;
-    }
-
-    public void setTblRevenueStatistic(JTable tblRevenueStatistic) {
-        this.tblRevenueStatistic = tblRevenueStatistic;
-    }
-
     public JTextField getTxtFromDate() {
         return txtFromDate;
     }
@@ -171,14 +147,6 @@ public class RevenueStatisticView extends javax.swing.JPanel {
         this.jLabel8 = jLabel8;
     }
 
-    public JLabel getjLabel9() {
-        return jLabel9;
-    }
-
-    public void setjLabel9(JLabel jLabel9) {
-        this.jLabel9 = jLabel9;
-    }
-
     public JLabel getLblTimeRange() {
         return lblTimeRange;
     }
@@ -187,20 +155,12 @@ public class RevenueStatisticView extends javax.swing.JPanel {
         this.lblTimeRange = lblTimeRange;
     }
 
-    public JLabel getLblTotalReceipt() {
-        return lblTotalReceipt;
+    public JLabel getLblTotalCount() {
+        return lblTotalCount;
     }
 
-    public void setLblTotalReceipt(JLabel lblTotalReceipt) {
-        this.lblTotalReceipt = lblTotalReceipt;
-    }
-
-    public JLabel getLblTotalRevenue() {
-        return lblTotalRevenue;
-    }
-
-    public void setLblTotalRevenue(JLabel lblTotalRevenue) {
-        this.lblTotalRevenue = lblTotalRevenue;
+    public void setLblTotalCount(JLabel lblTotalCount) {
+        this.lblTotalCount = lblTotalCount;
     }
 
     public JPanel getPnlInformation() {
@@ -234,9 +194,31 @@ public class RevenueStatisticView extends javax.swing.JPanel {
     public void setPnlChart(JPanel pnlChart) {
         this.pnlChart = pnlChart;
     }
-    
-    
 
+    public JLabel getjLabel9() {
+        return jLabel9;
+    }
+
+    public void setjLabel9(JLabel jLabel9) {
+        this.jLabel9 = jLabel9;
+    }
+
+    public JLabel getLblTotalRevenue() {
+        return lblTotalRevenue;
+    }
+
+    public void setLblTotalRevenue(JLabel lblTotalRevenue) {
+        this.lblTotalRevenue = lblTotalRevenue;
+    }
+
+    public JTable getTblMenuItemStatistic() {
+        return tblMenuItemStatistic;
+    }
+
+    public void setTblMenuItemStatistic(JTable tblMenuItemStatistic) {
+        this.tblMenuItemStatistic = tblMenuItemStatistic;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -252,8 +234,6 @@ public class RevenueStatisticView extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtToDate = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        cbxPeriod = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txtFromDate = new javax.swing.JTextField();
         cbxTimeRange = new javax.swing.JComboBox<>();
@@ -263,14 +243,14 @@ public class RevenueStatisticView extends javax.swing.JPanel {
         jSplitPane1 = new javax.swing.JSplitPane();
         pnlTable = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblRevenueStatistic = new javax.swing.JTable();
+        tblMenuItemStatistic = new javax.swing.JTable();
         pnlInformation = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         lblTimeRange = new javax.swing.JLabel();
+        lblTotalCount = new javax.swing.JLabel();
         lblTotalRevenue = new javax.swing.JLabel();
-        lblTotalReceipt = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         pnlChart = new javax.swing.JPanel();
 
         jSplitPane2.setDividerLocation(200);
@@ -280,10 +260,6 @@ public class RevenueStatisticView extends javax.swing.JPanel {
         jLabel2.setText("Ngày bắt đầu:");
 
         jLabel3.setText("Ngày kết thúc:");
-
-        jLabel4.setText("Hiển thị theo:");
-
-        cbxPeriod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setText("Khoàng thời gian:");
 
@@ -301,7 +277,6 @@ public class RevenueStatisticView extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbxPeriod, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtToDate)
                     .addComponent(txtFromDate, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cbxTimeRange, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -313,10 +288,9 @@ public class RevenueStatisticView extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel2)
                             .addComponent(lblErrFilter))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 99, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -336,15 +310,11 @@ public class RevenueStatisticView extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtToDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblErrFilter)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnFilter)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(205, Short.MAX_VALUE))
         );
 
         jSplitPane2.setLeftComponent(jPanel1);
@@ -352,19 +322,19 @@ public class RevenueStatisticView extends javax.swing.JPanel {
         jSplitPane1.setDividerLocation(250);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        tblRevenueStatistic.setModel(new javax.swing.table.DefaultTableModel(
+        tblMenuItemStatistic.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "STT", "Thời gian", "Doanh thu", "Số hóa đơn"
+                "STT", "Món", "Danh mục", "Số lượng", "Doanh thu"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -375,19 +345,19 @@ public class RevenueStatisticView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblRevenueStatistic);
+        jScrollPane1.setViewportView(tblMenuItemStatistic);
 
         jLabel6.setText("Khoảng thời gian:");
 
-        jLabel8.setText("Tổng doanh thu:");
-
-        jLabel9.setText("Tổng số hóa đơn:");
+        jLabel8.setText("Tổng số lượng:");
 
         lblTimeRange.setText("jLabel7");
 
+        lblTotalCount.setText("jLabel7");
+
         lblTotalRevenue.setText("jLabel7");
 
-        lblTotalReceipt.setText("jLabel7");
+        jLabel9.setText("Tổng doanh thu:");
 
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
         pnlInformation.setLayout(pnlInformationLayout);
@@ -396,19 +366,15 @@ public class RevenueStatisticView extends javax.swing.JPanel {
             .addGroup(pnlInformationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlInformationLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblTotalReceipt))
-                    .addGroup(pnlInformationLayout.createSequentialGroup()
-                        .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTotalRevenue)
-                            .addComponent(lblTimeRange))))
-                .addContainerGap(150, Short.MAX_VALUE))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
+                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTotalRevenue)
+                    .addComponent(lblTotalCount)
+                    .addComponent(lblTimeRange))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         pnlInformationLayout.setVerticalGroup(
             pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -420,12 +386,12 @@ public class RevenueStatisticView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(lblTotalRevenue))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblTotalCount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(lblTotalReceipt))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblTotalRevenue)
+                    .addComponent(jLabel9))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlTableLayout = new javax.swing.GroupLayout(pnlTable);
@@ -470,7 +436,7 @@ public class RevenueStatisticView extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+            .addComponent(jSplitPane1)
         );
 
         jSplitPane2.setRightComponent(jPanel2);
@@ -490,12 +456,10 @@ public class RevenueStatisticView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFilter;
-    private javax.swing.JComboBox<String> cbxPeriod;
     private javax.swing.JComboBox<String> cbxTimeRange;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -507,12 +471,12 @@ public class RevenueStatisticView extends javax.swing.JPanel {
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JLabel lblErrFilter;
     private javax.swing.JLabel lblTimeRange;
-    private javax.swing.JLabel lblTotalReceipt;
+    private javax.swing.JLabel lblTotalCount;
     private javax.swing.JLabel lblTotalRevenue;
     private javax.swing.JPanel pnlChart;
     private javax.swing.JPanel pnlInformation;
     private javax.swing.JPanel pnlTable;
-    private javax.swing.JTable tblRevenueStatistic;
+    private javax.swing.JTable tblMenuItemStatistic;
     private javax.swing.JTextField txtFromDate;
     private javax.swing.JTextField txtToDate;
     // End of variables declaration//GEN-END:variables

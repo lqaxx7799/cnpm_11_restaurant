@@ -5,6 +5,8 @@
  */
 package controllers;
 
+import controllers.managements.ManagementController;
+import controllers.statistics.StatisticController;
 import app.App;
 import java.awt.Frame;
 import javax.swing.JFrame;

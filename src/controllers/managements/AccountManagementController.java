@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controllers.managements;
 
+import controllers.BaseController;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,7 @@ import models.Role;
 import services.AccountService;
 import services.RoleService;
 import utils.CommonUltilities;
-import views.AccountManagementView;
+import views.managements.AccountManagementView;
 
 /**
  *
@@ -49,7 +50,6 @@ public class AccountManagementController implements BaseController {
 
         accountManagementView.getBtnAddNew().addActionListener(e -> addNewHandler());
         accountManagementView.getBtnEdit().addActionListener(e -> editHandler());
-        accountManagementView.getBtnDelete().addActionListener(e -> deleteHandler());
         accountManagementView.getBtnCancel().addActionListener(e -> cancelHandler());
         accountManagementView.getBtnSubmit().addActionListener(e -> submitHandler());
         accountManagementView.getBtnViewSalary().addActionListener(e -> viewSalaryHandler());
@@ -154,23 +154,6 @@ public class AccountManagementController implements BaseController {
         setFormState(true);
         actionType = "edit";
         activeAccountId = accountId;
-    }
-
-    private void deleteHandler() {
-        int selectedRow = accountManagementView.getTblAccount().getSelectedRow();
-
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(null, "Chọn một hàng trước");
-            return;
-        }
-
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog(null, "Xóa tài khoản này?", "Thông báo", dialogButton);
-        if (dialogResult == JOptionPane.YES_OPTION) {
-            int accountId = (int) accountManagementView.getTblAccount().getValueAt(selectedRow, 0);
-            accountService.delete(accountId);
-            loadTable();
-        }
     }
 
     private void cancelHandler() {
@@ -334,7 +317,6 @@ public class AccountManagementController implements BaseController {
     private void setButtonsState(boolean state) {
         accountManagementView.getBtnAddNew().setEnabled(state);
         accountManagementView.getBtnEdit().setEnabled(state);
-        accountManagementView.getBtnDelete().setEnabled(state);
         accountManagementView.getBtnCancel().setEnabled(!state);
         accountManagementView.getBtnSubmit().setEnabled(!state);
         accountManagementView.getBtnViewSalary().setEnabled(state);

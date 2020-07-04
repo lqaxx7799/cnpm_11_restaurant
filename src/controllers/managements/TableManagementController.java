@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controllers.managements;
 
+import controllers.BaseController;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,7 +14,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import models.Table;
 import services.TableService;
-import views.TableManagementView;
+import views.managements.TableManagementView;
 
 /**
  *
@@ -70,8 +71,9 @@ public class TableManagementController implements BaseController {
         if (dialogResult == JOptionPane.YES_OPTION)
         {
             int id = (int) tableManagementView.getTableManagementTable().getValueAt(rowSelected, 0);
-            tableService.delete(id);
-            listModel.removeRow(rowSelected);
+            Table table = tableService.getById(id);
+            table.setAvailable(false);
+            tableService.update(table);
             JOptionPane.showMessageDialog(null, "Thành Công!");
         }
         loadData();
@@ -93,6 +95,7 @@ public class TableManagementController implements BaseController {
             newTable.setTableName(tabelName);
             boolean isOccupied = tableManagementView.getIsOccupiedRadioButton().isSelected();
             newTable.setOccupied(isOccupied);
+            newTable.setAvailable(true);
             if (tabelName.equals("")) {
                 JOptionPane.showMessageDialog(null, "Chưa nhập tên bàn");
                 return;
@@ -145,11 +148,13 @@ public class TableManagementController implements BaseController {
         }
         ArrayList<Table> tableList = tableService.getAll();
         for (Table item : tableList) {
-            Object[] rowData = new Object[]{
-                item.getId(),
-                item.getTableName(),
-                item.isOccupied(),};
-            listModel.addRow(rowData);
+            if(item.isAvailable()){
+                Object[] rowData = new Object[]{
+                    item.getId(),
+                    item.getTableName(),
+                    item.isOccupied(),};
+                listModel.addRow(rowData);
+            }   
         }
         decorateTable();
         setButtonState(true);

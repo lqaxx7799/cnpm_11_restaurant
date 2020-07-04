@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controllers.statistics;
 
+import controllers.BaseController;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,8 +43,8 @@ import services.MenuItemService;
 import services.ReceiptDetailService;
 import services.ReceiptService;
 import utils.CommonUltilities;
-import views.ExpenseStatisticView;
-import views.MenuItemStatisticView;
+import views.statistics.ExpenseStatisticView;
+import views.statistics.MenuItemStatisticView;
 
 /**
  *

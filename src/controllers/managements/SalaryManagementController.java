@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package controllers.managements;
 
 import app.App;
 import java.awt.Color;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import models.SalaryInformation;
 import services.SalaryInformationService;
 import utils.CommonUltilities;
-import views.SalaryManagementView;
+import views.managements.SalaryManagementView;
 
 /**
  *
