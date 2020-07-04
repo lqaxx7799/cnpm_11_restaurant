@@ -27,12 +27,15 @@ public class LogInController {
     public LogInController() {
         accountService = new AccountService();
         this.logInView = new LogInView();
+        
+        logInView.getLblMessage().setText("");
 
         logInView.getBtnLogIn().addActionListener(e -> logInHandler());
 
         JFrame jframe = new JFrame();
         jframe.setSize(500, 300);
         jframe.setLocationRelativeTo(null);
+        jframe.setSize(450, 350);
         jframe.add(logInView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -41,6 +44,10 @@ public class LogInController {
 
     public void initController() {
         logInFrame.setVisible(true);
+    }
+    
+    public JFrame getFrame(){
+        return logInFrame;
     }
 
     private void logInHandler() {

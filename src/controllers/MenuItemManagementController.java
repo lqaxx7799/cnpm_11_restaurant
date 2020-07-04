@@ -2,6 +2,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import models.MenuCategory;
 import models.MenuItem;
@@ -9,7 +10,7 @@ import services.MenuCategoryService;
 import services.MenuItemService;
 import views.MenuItemManagementView;
 
-public class MenuItemManagementController {
+public class MenuItemManagementController implements BaseController{
     private MenuCategoryService menuCategoryService;
     private MenuItemService menuItemService;
     private MenuItemManagementView menuItemManagementView;
@@ -27,10 +28,6 @@ public class MenuItemManagementController {
         menuItemManagementView.getBtnRemove().addActionListener(e-> btnRemoveHandler());
         menuItemManagementView.getBtnOK().addActionListener(e-> btnOKHandler());
         menuItemManagementView.getBtnCancel().addActionListener(e->btnCancelHandler());
-    }
-    
-    public MenuItemManagementView InitController(){
-        return menuItemManagementView;
     }
     
     public void loadTable(){
@@ -227,5 +224,15 @@ public class MenuItemManagementController {
         menuItemManagementView.getLblErrorName().setText("");
         menuItemManagementView.getLblErrorPrice().setText("");
         menuItemManagementView.getLblErrorCategoryId().setText("");
+    }
+
+    @Override
+    public JPanel getPanel() {
+        return menuItemManagementView;
+    }
+
+    @Override
+    public void loadData() {
+        
     }
 }

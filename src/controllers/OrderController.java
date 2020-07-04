@@ -21,8 +21,9 @@ import app.App;
 import java.awt.Dimension;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-public class OrderController {
+public class OrderController implements BaseController{
     private OrderView orderView;
     private TableService tableService;
     private MenuItemService menuItemService;
@@ -172,5 +173,15 @@ public class OrderController {
             btn.addActionListener(e -> showBill(item.getId()));
             orderView.getjPanel3().add(btn);
         }
+    }
+
+    @Override
+    public JPanel getPanel() {
+        return orderView;
+    }
+
+    @Override
+    public void loadData() {
+      
     }
  }

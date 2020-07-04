@@ -2,12 +2,13 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import models.MenuCategory;
 import services.MenuCategoryService;
 import views.MenuCategoryManagementView;
 
-public class MenuCategoryManagementController {
+public class MenuCategoryManagementController implements BaseController{
     private MenuCategoryService menuCategoryService;
     private MenuCategoryManagementView menuCategoryManagementView;
     private String actionName;
@@ -23,10 +24,6 @@ public class MenuCategoryManagementController {
         menuCategoryManagementView.getBtnRemove().addActionListener(e-> btnRemoveHandler());
         menuCategoryManagementView.getBtnOK().addActionListener(e-> btnOKHandler());
         menuCategoryManagementView.getBtnCancel().addActionListener(e->btnCancelHandler());
-    }
-    
-    public MenuCategoryManagementView InitController(){
-        return menuCategoryManagementView;
     }
     
     public void loadTable(){
@@ -171,5 +168,15 @@ public class MenuCategoryManagementController {
     
     public void resetErrorLabel(){
         menuCategoryManagementView.getLblErrorName().setText("");
+    }
+
+    @Override
+    public JPanel getPanel() {
+       return menuCategoryManagementView;
+    }
+
+    @Override
+    public void loadData() {
+     
     }
 }
