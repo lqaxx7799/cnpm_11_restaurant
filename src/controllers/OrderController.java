@@ -22,6 +22,7 @@ import java.awt.Dimension;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import services.CustomerService;
 
 public class OrderController implements BaseController{
     private OrderView orderView;
@@ -31,7 +32,10 @@ public class OrderController implements BaseController{
     private ReceiptService receiptService;
     private ReceiptDetailService receiptDetailService;
     private BillListService billListService;
+    private CustomerService customerService;
     public int CurrentTableId;
+    public int CurrentReceiptId;
+    public double totalPaymentPrice = 0;
     
     public OrderController(){
         orderView = new OrderView();
@@ -42,10 +46,12 @@ public class OrderController implements BaseController{
         orderView.getCbMenuCategory().setModel(new DefaultComboBoxModel<String>(menuCategoryList.toArray(new String[0])));
         billListService = new BillListService();
         receiptService = new ReceiptService();
+        customerService = new CustomerService();
         receiptDetailService = new ReceiptDetailService();
         orderView.getCbMenuCategory().addActionListener(e -> showCbMenuItem());
         orderView.getBtnAdd().addActionListener(e -> BtnAddHandler());
         orderView.getBtnPay().addActionListener(e -> BtnPayHandlder());
+        orderView.getBtnAddReceipt().addActionListener(e -> btnAddReceiptHandler());
     } 
     public OrderView initController(){
         return orderView;
@@ -65,7 +71,9 @@ public class OrderController implements BaseController{
     
     private void showBill(int tableId){
             CurrentTableId = tableId;
+            CurrentReceiptId = billListService.getReceiptIdByTableId(tableId);
             orderView.getLabelTableName().setText(tableService.getById(CurrentTableId).getTableName());
+            orderView.getLblReceiptId().setText("Số " + CurrentReceiptId);
             DefaultTableModel tableModel= (DefaultTableModel)orderView.getjTable2().getModel();
             for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
                 tableModel.removeRow(i);
@@ -77,7 +85,25 @@ public class OrderController implements BaseController{
             }
     }
 
-    private void BtnAddHandler() {
+    private void BtnAddHandler(){
+        if(CurrentReceiptId==0){
+            JOptionPane.showMessageDialog(null, "Bàn này chưa có hóa đơn nào");
+            return;
+        }
+        String regex = "^[0-9]{1,}$";
+        int selectedIdex = orderView.getCbMenuItem().getSelectedIndex();
+        if (orderView.getTxtQuantity().getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Chưa nhập số lượng");
+            return;
+        }else if(orderView.getTxtQuantity().getText().matches(regex) == false){
+            JOptionPane.showMessageDialog(null, "Chỉ được nhập số lượng là số");
+            return;
+        }
+        if(selectedIdex == - 1){
+            JOptionPane.showMessageDialog(null, "Chưa chọn món");
+            return;
+        }
+        int quantity = Integer.parseInt(orderView.getTxtQuantity().getText());
         ArrayList<MenuItem> menuItemList = menuItemService.getAll();
         String slectedMenuItem = orderView.getCbMenuItem().getSelectedItem().toString();
         MenuItem menuItem = new MenuItem();
@@ -87,34 +113,22 @@ public class OrderController implements BaseController{
                 break;
             }
         }
-        if(billListService.checkExistBillByTableId(CurrentTableId)== false){
-            Receipt rc = new Receipt();
-            rc.setArrivedTime(new Date());
-            rc.setPaidTime(null);
-            rc.setPaid(false);
-            rc.setTableId(CurrentTableId);
-            rc.setAccountId(App.currentAccount.getId());
-            receiptService.insert(rc);
-            Table table = tableService.getById(CurrentTableId);
-            table.setOccupied(true);
-            tableService.update(table);
-            loadTable();
-        }
-            int rc_id =0;
-            ArrayList<Receipt> Receipts = receiptService.getAll();
-            for(Receipt item : Receipts ){
-                if(item.getTableId()==CurrentTableId){
-                    rc_id = item.getId();
-                    break;
-                }
+        ArrayList<ReceiptDetail> rd = receiptDetailService.getAll();
+        for(ReceiptDetail item: rd){
+            if(item.getReceiptId()==CurrentReceiptId && item.getMenuItemId()==menuItem.getId()){
+                item.setQuantity(item.getQuantity()+quantity);
+                receiptDetailService.update(item);
+                showBill(CurrentTableId);
+                resetForm();
+                return;
             }
+        }
             int menu_item_id = menuItem.getId();
-            int quantity = Integer.parseInt(orderView.getTxtQuantity().getText());
             Double unit_price = menuItem.getPrice();
             boolean is_made = false;
             boolean is_served = false;
             ReceiptDetail receiptDetail = new ReceiptDetail();
-            receiptDetail.setReceiptId(rc_id);
+            receiptDetail.setReceiptId(CurrentReceiptId);
             receiptDetail.setMenuItemId(menu_item_id);
             receiptDetail.setQuantity(quantity);
             receiptDetail.setUnitPrice(unit_price);
@@ -122,36 +136,37 @@ public class OrderController implements BaseController{
             receiptDetail.setServed(is_served);
             receiptDetailService.insert(receiptDetail);
             showBill(CurrentTableId);
-    }
+            resetForm();
+    }    
     
     private void BtnPayHandlder() {
-        if(billListService.checkExistBillByTableId(CurrentTableId)== false){
+        if(CurrentReceiptId == 0){
             JOptionPane.showMessageDialog(null,"Bàn này hiện không có hóa đơn nào" , "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         else{
-            int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh toán " + tableService.getById(CurrentTableId).getTableName()
-                ,"Xác nhận", JOptionPane.YES_NO_OPTION);
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh toán bàn "+tableService.getById(CurrentTableId).getTableName(),
+                    "Xác nhận", JOptionPane.YES_NO_OPTION);
             if(dialogResult == JOptionPane.YES_OPTION){
-                int rc_id =0;
-                ArrayList<Receipt> Receipts = receiptService.getAll();
-                for(Receipt item : Receipts ){
-                    if(item.getTableId()==CurrentTableId){
-                        rc_id = item.getId();
-                        break;
-                    }
+                DefaultTableModel model = (DefaultTableModel) orderView.getjTable2().getModel();
+                for (int i = model.getRowCount() - 1; i >= 0; i--) {
+                    totalPaymentPrice += (Double)orderView.getjTable2().getValueAt(i, 3);
                 }
-            Receipt rc_temp = receiptService.getById(rc_id);
-            rc_temp.setPaid(true);
-            rc_temp.setPaidTime(new Date());
-            receiptService.update(rc_temp);
-            Table table = tableService.getById(CurrentTableId);
-            table.setOccupied(false);
-            tableService.update(table);
-            showBill(CurrentTableId);
-            loadTable();
+                Receipt rc_temp = receiptService.getById(CurrentReceiptId);
+                rc_temp.setPaid(true);
+                rc_temp.setPaidTime(new Date());
+                receiptService.update(rc_temp);
+                Table table = tableService.getById(CurrentTableId);
+                table.setOccupied(false);
+                tableService.update(table);
+                JOptionPane.showMessageDialog(null, "Thanh toán thành công");
+                showBill(CurrentTableId);
+                loadTable();
+                totalPaymentPrice = 0;
             }
         }
+        CurrentReceiptId = billListService.getReceiptIdByTableId(CurrentTableId);
+        orderView.getLblReceiptId().setText("Số " + CurrentReceiptId);
     }
     
     private void loadTable(){
@@ -165,7 +180,7 @@ public class OrderController implements BaseController{
         orderView.getjPanel3().setPreferredSize(new Dimension(400,h*100));
         for(Table item : tableList){
             JButton btn = new JButton();
-            btn.setPreferredSize(new Dimension(86,100));
+            btn.setPreferredSize(new Dimension(200,190));
             btn.setText(item.getTableName());
             if(item.isOccupied()){
                 btn.setBackground(Color.red);
@@ -174,7 +189,35 @@ public class OrderController implements BaseController{
             orderView.getjPanel3().add(btn);
         }
     }
-
+        
+    public void btnAddReceiptHandler(){
+        if(CurrentReceiptId >0){
+            JOptionPane.showMessageDialog(null, "Bàn này đã có hóa đơn");
+            return;
+        }
+        else{
+            Receipt rc = new Receipt();
+            rc.setArrivedTime(new Date());
+            rc.setPaidTime(null);
+            rc.setPaid(false);
+            rc.setTableId(CurrentTableId);
+            rc.setAccountId(App.currentAccount.getId());
+            receiptService.insert(rc);
+            JOptionPane.showMessageDialog(null, "Thêm hóa đơn thành công");
+            Table table = tableService.getById(CurrentTableId);
+            table.setOccupied(true);
+            tableService.update(table);
+            loadTable();
+        }
+        CurrentReceiptId = billListService.getReceiptIdByTableId(CurrentTableId);
+        orderView.getLblReceiptId().setText("Số " + CurrentReceiptId);
+    }
+    
+    public void resetForm(){
+        orderView.getTxtQuantity().setText("");
+        orderView.getCbMenuItem().setSelectedIndex(-1);
+        orderView.getCbMenuCategory().setSelectedIndex(-1);
+    }
     @Override
     public JPanel getPanel() {
         return orderView;

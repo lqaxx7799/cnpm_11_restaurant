@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -34,6 +34,7 @@ public class HomeController {
     private SalaryReportController salaryReportController;
     private AccountSettingController accountSettingController;
 
+
     public HomeController() {
         this.homeView = new HomeView();
 
@@ -50,7 +51,6 @@ public class HomeController {
         accountSettingController = new AccountSettingController();
 
         JFrame jframe = new JFrame();
-        //jframe.setSize(900, 500);
         jframe.setLocationRelativeTo(null);
         jframe.setExtendedState(Frame.MAXIMIZED_BOTH);
         jframe.add(homeView);
