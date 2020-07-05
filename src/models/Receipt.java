@@ -11,7 +11,7 @@ public class Receipt {
     private int tableId;
     private int accountId;
     private double totalDiscountPercentage;
-    private int customerId;
+
     public int getId() {
         return id;
     }
@@ -22,14 +22,6 @@ public class Receipt {
 
     public void setTotalDiscountPercentage(double totalDiscountPercentage) {
         this.totalDiscountPercentage = totalDiscountPercentage;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
     }
 
     public void setId(int id) {
