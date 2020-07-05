@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -36,6 +36,7 @@ public class HomeController {
     private SalaryReportController salaryReportController;
     private AccountSettingController accountSettingController;
 
+
     public HomeController() {
         this.homeView = new HomeView();
 
@@ -52,10 +53,7 @@ public class HomeController {
         accountSettingController = new AccountSettingController();
 
         JFrame jframe = new JFrame();
-        jframe.setSize(900, 500);
         jframe.setLocationRelativeTo(null);
-        jframe.setResizable(false);
-//      jframe.setSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
         jframe.setExtendedState(Frame.MAXIMIZED_BOTH);
         jframe.add(homeView);
         jframe.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -156,18 +154,21 @@ public class HomeController {
             case 2: {
                 switch (index) {
                     case 0:
-                        timekeepingController.loadData();
+                        orderController.loadData();
                         break;
                     case 1:
-                        changePasswordController.loadData();
+                        timekeepingController.loadData();
                         break;
                     case 2:
-                        salaryReportController.loadData();
+                        changePasswordController.loadData();
                         break;
                     case 3:
-                        accountSettingController.loadData();
+                        salaryReportController.loadData();
                         break;
                     case 4:
+                        accountSettingController.loadData();
+                        break;
+                    case 5:
                         logOutController.loadData();
                         break;
                     default:

@@ -10,7 +10,7 @@ public class Receipt {
     private boolean isPaid;
     private int tableId;
     private int accountId;
-    
+
     public int getId() {
         return id;
     }
