@@ -39,8 +39,11 @@ public class IngredientManagementController implements BaseController {
     }
 
     private void addIngredientHandler() {
-        setFormState(true);
+        ingredientManagementView.getIngredientNameTextField().setEnabled(true);
+        ingredientManagementView.getUnitTextField().setEnabled(true);
+        ingredientManagementView.getIsAvailbleRadioButton().setEnabled(false);
         setButtonState(false);
+        ingredientManagementView.getIsAvailbleRadioButton().setEnabled(false);
         actionType = "add";
     }
 
@@ -64,6 +67,7 @@ public class IngredientManagementController implements BaseController {
             if (item.getId() == id) {
                 ingredientManagementView.getIngredientNameTextField().setText(item.getIngredientName());
                 ingredientManagementView.getUnitTextField().setText(item.getUnit());
+                ingredientManagementView.getIsAvailbleRadioButton().setSelected(item.isAvailable());
             }
         }
         actionType = "edit";
@@ -124,15 +128,16 @@ public class IngredientManagementController implements BaseController {
                 return;
             }
 
-            for (Ingredient item1 : ingredientList) {
-                if (item1.getIngredientName().equalsIgnoreCase(newName) && item1.getUnit().equalsIgnoreCase(unit)) {
-                    JOptionPane.showMessageDialog(null, "Nguyên liệu đã tồn tạị!");
-                    return;
-                }
-            }
+//            for (Ingredient item1 : ingredientList) {
+//                if (item1.getIngredientName().equalsIgnoreCase(newName) && item1.getUnit().equalsIgnoreCase(unit)) {
+//                    JOptionPane.showMessageDialog(null, "Nguyên liệu đã tồn tạị!");
+//                    return;
+//                }
+//            }
 
             item.setIngredientName(ingredientManagementView.getIngredientNameTextField().getText());
             item.setUnit(ingredientManagementView.getUnitTextField().getText());
+            item.setAvailable(ingredientManagementView.getIsAvailbleRadioButton().isSelected());
 
             ingredientService.update(item);
             JOptionPane.showMessageDialog(null, "Thành Công");
@@ -147,7 +152,7 @@ public class IngredientManagementController implements BaseController {
             Ingredient newIngredient = new Ingredient();
             String a = ingredientManagementView.getIngredientNameTextField().getText();
             for (Ingredient item1 : ingredientList) {
-                if (item1.getIngredientName().equals(a)) {
+                if (item1.getIngredientName().equalsIgnoreCase(a)) {
                     JOptionPane.showMessageDialog(null, "Nguyên liệu đã tồn tại");
                     return;
                 } else if (ingredientManagementView.getIngredientNameTextField().getText().equals("")) {
@@ -183,11 +188,13 @@ public class IngredientManagementController implements BaseController {
     private void resetForm() {
         ingredientManagementView.getIngredientNameTextField().setText("");
         ingredientManagementView.getUnitTextField().setText("");
+        ingredientManagementView.getIsAvailbleRadioButton().setSelected(false);
     }
 
     private void setFormState(boolean state) {
         ingredientManagementView.getIngredientNameTextField().setEnabled(state);
         ingredientManagementView.getUnitTextField().setEnabled(state);
+        ingredientManagementView.getIsAvailbleRadioButton().setEnabled(state);
     }
 
     @Override
@@ -206,14 +213,15 @@ public class IngredientManagementController implements BaseController {
         }
 
         for (Ingredient item : ingredientList) {
-            if (item.isAvailable()) {
+        //    if (item.isAvailable()) {
                 Object[] rowData = new Object[]{
                     item.getId(), // ID
                     item.getIngredientName(), // Ten NL
                     item.getUnit(), // Don vi
+                    item.isAvailable(),
                 };
                 listModel.addRow(rowData);
-            }
+         //   }
         }
         decorateTable();
         setFormState(false);
