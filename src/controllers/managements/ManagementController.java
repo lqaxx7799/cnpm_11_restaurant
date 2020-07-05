@@ -27,7 +27,7 @@ public class ManagementController implements BaseController {
     private IngredientManagementController ingredientManagementController;
     private TableManagementController tableManagementController;
     private MenuItemManagementController menuItemManagementController;
-    private MenuCategoryManagementController menuCategoryManagementController; 
+    private MenuCategoryManagementController menuCategoryManagementController;
 
     public ManagementController() {
         managementView = new ManagementView();
@@ -68,6 +68,12 @@ public class ManagementController implements BaseController {
                 break;
             case 2:
                 tableManagementController.loadData();
+                break;
+            case 3:
+                menuItemManagementController.loadData();
+                break;
+            case 4:
+                menuCategoryManagementController.loadData();
                 break;
             default:
                 break;
