@@ -154,18 +154,21 @@ public class HomeController {
             case 2: {
                 switch (index) {
                     case 0:
-                        timekeepingController.loadData();
+                        orderController.loadData();
                         break;
                     case 1:
-                        changePasswordController.loadData();
+                        timekeepingController.loadData();
                         break;
                     case 2:
-                        salaryReportController.loadData();
+                        changePasswordController.loadData();
                         break;
                     case 3:
-                        accountSettingController.loadData();
+                        salaryReportController.loadData();
                         break;
                     case 4:
+                        accountSettingController.loadData();
+                        break;
+                    case 5:
                         logOutController.loadData();
                         break;
                     default:

@@ -22,7 +22,6 @@ import java.awt.Dimension;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import services.CustomerService;
 
 public class OrderController implements BaseController{
     private OrderView orderView;
@@ -32,7 +31,6 @@ public class OrderController implements BaseController{
     private ReceiptService receiptService;
     private ReceiptDetailService receiptDetailService;
     private BillListService billListService;
-    private CustomerService customerService;
     public int CurrentTableId;
     public int CurrentReceiptId;
     public double totalPaymentPrice = 0;
@@ -46,7 +44,6 @@ public class OrderController implements BaseController{
         orderView.getCbMenuCategory().setModel(new DefaultComboBoxModel<String>(menuCategoryList.toArray(new String[0])));
         billListService = new BillListService();
         receiptService = new ReceiptService();
-        customerService = new CustomerService();
         receiptDetailService = new ReceiptDetailService();
         orderView.getCbMenuCategory().addActionListener(e -> showCbMenuItem());
         orderView.getBtnAdd().addActionListener(e -> BtnAddHandler());
@@ -145,7 +142,7 @@ public class OrderController implements BaseController{
             return;
         }
         else{
-            int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh toán bàn "+tableService.getById(CurrentTableId).getTableName(),
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có muốn thanh toán "+tableService.getById(CurrentTableId).getTableName(),
                     "Xác nhận", JOptionPane.YES_NO_OPTION);
             if(dialogResult == JOptionPane.YES_OPTION){
                 DefaultTableModel model = (DefaultTableModel) orderView.getjTable2().getModel();
@@ -224,7 +221,10 @@ public class OrderController implements BaseController{
     }
 
     @Override
-    public void loadData() {
-      
+    public void loadData(){
+        loadTable();
+        orderView.getTxtQuantity().setText("");
+        orderView.getCbMenuItem().setSelectedIndex(-1);
+        orderView.getCbMenuCategory().setSelectedIndex(-1);
     }
  }

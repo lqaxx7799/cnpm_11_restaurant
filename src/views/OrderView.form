@@ -23,7 +23,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="422" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="477" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jPanel2" max="32767" attributes="0"/>
@@ -177,7 +177,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" pref="261" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="329" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnPay" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -274,7 +274,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnAddReceipt" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" pref="24" max="-2" attributes="0"/>
                                   <Component id="labelTableName" min="-2" pref="18" max="-2" attributes="0"/>
                               </Group>
