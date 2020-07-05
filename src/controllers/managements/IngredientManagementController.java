@@ -166,7 +166,9 @@ public class IngredientManagementController implements BaseController {
             newIngredient.setIngredientName(a);
             newIngredient.setUnit(ingredientManagementView.getUnitTextField().getText());
             newIngredient.setAvailable(true);
+            
             ingredientService.insert(newIngredient);
+            
             JOptionPane.showMessageDialog(null, "Thành Công");
             ingredientManagementView.getIngredientNameTextField().setText("");
             ingredientManagementView.getUnitTextField().setText("");
