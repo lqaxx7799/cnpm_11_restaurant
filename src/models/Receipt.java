@@ -10,18 +10,9 @@ public class Receipt {
     private boolean isPaid;
     private int tableId;
     private int accountId;
-    private double totalDiscountPercentage;
 
     public int getId() {
         return id;
-    }
-
-    public double getTotalDiscountPercentage() {
-        return totalDiscountPercentage;
-    }
-
-    public void setTotalDiscountPercentage(double totalDiscountPercentage) {
-        this.totalDiscountPercentage = totalDiscountPercentage;
     }
 
     public void setId(int id) {
