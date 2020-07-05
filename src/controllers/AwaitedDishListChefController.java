@@ -64,7 +64,6 @@ public class AwaitedDishListChefController  implements BaseController{
     @Override
     public void loadData() {
         DefaultTableModel listModel = (DefaultTableModel) awaitedDishListChefView.getAwaitedDishLstTable().getModel();
-
         for (int i = listModel.getRowCount() - 1; i >= 0; i--) {
             listModel.removeRow(i);
         }

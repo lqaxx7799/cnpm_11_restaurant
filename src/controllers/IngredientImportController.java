@@ -51,7 +51,7 @@ public class IngredientImportController implements BaseController {
         ArrayList<Ingredient> ingredientList = ingredientService.getAll();
         ArrayList<String> ingredientName = new ArrayList<>();
         for (Ingredient item : ingredientList) {
-            if (item.isAvailable()) {
+            if(item.isAvailable()){
                 ingredientName.add(item.getIngredientName());
             }
         }
