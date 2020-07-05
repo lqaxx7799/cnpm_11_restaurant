@@ -236,6 +236,10 @@ public class MenuItemManagementController implements BaseController {
 
     @Override
     public void loadData() {
-
+        loadTable();
+        resetForm();
+        resetErrorLabel();
+        setButtonState(true);
+        setFormState(false);
     }
 }
