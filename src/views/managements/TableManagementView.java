@@ -112,6 +112,24 @@ public class TableManagementView extends javax.swing.JPanel {
     public void setTableNameTextField(JTextField tableNameTextField) {
         this.tableNameTextField = tableNameTextField;
     }
+
+    public JRadioButton getIsAvailableRadioButton() {
+        return isAvailableRadioButton;
+    }
+
+    public void setIsAvailableRadioButton(JRadioButton isAvailableRadioButton) {
+        this.isAvailableRadioButton = isAvailableRadioButton;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public void setjLabel3(JLabel jLabel3) {
+        this.jLabel3 = jLabel3;
+    }
+    
+    
     
     
     
@@ -138,23 +156,25 @@ public class TableManagementView extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         tableNameTextField = new javax.swing.JTextField();
         isOccupiedRadioButton = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        isAvailableRadioButton = new javax.swing.JRadioButton();
 
         tableManagementTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null,  new Boolean(false)},
-                {null, null,  new Boolean(false)},
-                {null, null,  new Boolean(false)},
-                {null, null,  new Boolean(false)}
+                {null, null,  new Boolean(false), null},
+                {null, null,  new Boolean(false), null},
+                {null, null,  new Boolean(false), null},
+                {null, null,  new Boolean(false), null}
             },
             new String [] {
-                "ID Bàn", "Tên Bàn", "Có Người Ngồi"
+                "ID Bàn", "Tên Bàn", "Có Người Ngồi", "Có sẵn"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -181,6 +201,8 @@ public class TableManagementView extends javax.swing.JPanel {
 
         jLabel2.setText("Có Người Ngồi");
 
+        jLabel3.setText("Có sẵn");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,9 +222,11 @@ public class TableManagementView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
                         .addGap(75, 75, 75)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(isAvailableRadioButton)
                             .addComponent(isOccupiedRadioButton)
                             .addComponent(tableNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(204, Short.MAX_VALUE))
@@ -233,7 +257,11 @@ public class TableManagementView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(isOccupiedRadioButton))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(isAvailableRadioButton))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -243,9 +271,11 @@ public class TableManagementView extends javax.swing.JPanel {
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton doneButton;
     private javax.swing.JButton editTableButton;
+    private javax.swing.JRadioButton isAvailableRadioButton;
     private javax.swing.JRadioButton isOccupiedRadioButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton removeTableButton;
     private javax.swing.JTable tableManagementTable;

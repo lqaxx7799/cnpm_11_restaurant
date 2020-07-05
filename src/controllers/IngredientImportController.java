@@ -37,7 +37,7 @@ public class IngredientImportController implements BaseController {
         ingredientService = new IngredientService();
         ingredientImportService = new IngredientImportService();
 
-        ingredientImportView.getCbIngredientList().addActionListener(al -> onIngredientChange());
+        ingredientImportView.getCbIngredientList().addActionListener(al -> onIngredientChange()); // Khi chon nguyen lieu trong combobox
         ingredientImportView.getNhapnlButton().addActionListener(al -> ingredientImportHandler());
     }
 
@@ -51,7 +51,7 @@ public class IngredientImportController implements BaseController {
         ArrayList<Ingredient> ingredientList = ingredientService.getAll();
         ArrayList<String> ingredientName = new ArrayList<>();
         for (Ingredient item : ingredientList) {
-            if (item.isAvailable()) {
+            if(item.isAvailable()){
                 ingredientName.add(item.getIngredientName());
             }
         }
@@ -61,10 +61,14 @@ public class IngredientImportController implements BaseController {
     }
 
     private void onIngredientChange() {
-        int ingredientIndex = ingredientImportView.getCbIngredientList().getSelectedIndex();
+        String ingredientName = ingredientImportView.getCbIngredientList().getSelectedItem().toString();
         ArrayList<Ingredient> ingredientList = ingredientService.getAll();
-        Ingredient ingredient = ingredientList.get(ingredientIndex);
-        ingredientImportView.getLblUnit().setText(ingredient.getUnit());
+        for(Ingredient item: ingredientList){
+            if(item.getIngredientName().equalsIgnoreCase(ingredientName)){
+                ingredientImportView.getLblUnit().setText(item.getUnit());
+                break;
+            }
+        }
     }
 
     private void ingredientImportHandler() { // Chi xử lí khi mình ấn vào nút nhập nguyên liệu

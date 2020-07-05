@@ -64,7 +64,6 @@ public class AwaitedDishListChefController  implements BaseController{
     @Override
     public void loadData() {
         DefaultTableModel listModel = (DefaultTableModel) awaitedDishListChefView.getAwaitedDishLstTable().getModel();
-
         for (int i = listModel.getRowCount() - 1; i >= 0; i--) {
             listModel.removeRow(i);
         }
@@ -87,8 +86,10 @@ public class AwaitedDishListChefController  implements BaseController{
             listModel.removeRow(i);
         }
 
-        for (ReceiptDetail item : receiptDetails) {
-            if (item.isMade() == false) {          // Nếu chưa được làm
+        for (ReceiptDetail item : receiptDetails)
+        {
+            if (item.isMade() == false) // Nếu chưa được làm
+            {          
                 MenuItem menuItem = new MenuItem();
                 MenuCategory mc = new MenuCategory();   // mc.getCategoryName()
                 Receipt hd = new Receipt();
