@@ -46,7 +46,7 @@ public class MenuCategoryService {
     }
 
     public ArrayList<String> getNameAll() {
-        try {
+       try {
             Connection connection = ConnectionFactory.getConnection();
             Statement stmt = connection.createStatement();
             String query = "select category_name from menu_categories where is_available = 1";

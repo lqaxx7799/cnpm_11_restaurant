@@ -113,7 +113,7 @@ public class MenuItemManagementController implements BaseController {
         if (itemName.equals("")) {
             menuItemManagementView.getLblErrorName().setText("Chưa nhập tên");
             check = false;
-        } else if (actionName.equals("add")) {
+        } else if (actionName.equals("add")){
             ArrayList<MenuItem> menuItems = menuItemService.getAll();
             for (MenuItem item : menuItems) {
                 if (item.getItemName().equalsIgnoreCase(itemName) && item.isAvailable()) {
