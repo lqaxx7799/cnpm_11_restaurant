@@ -27,7 +27,7 @@ public class ManagementController implements BaseController {
     private IngredientManagementController ingredientManagementController;
     private TableManagementController tableManagementController;
     private MenuItemManagementController menuItemManagementController;
-    private MenuCategoryManagementController menuCategoryManagementController; 
+    private MenuCategoryManagementController menuCategoryManagementController;
 
     public ManagementController() {
         managementView = new ManagementView();
