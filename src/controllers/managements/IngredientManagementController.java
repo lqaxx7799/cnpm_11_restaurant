@@ -108,6 +108,7 @@ public class IngredientManagementController implements BaseController {
         {
             int rowSelected = ingredientManagementView.getIngredientManagementTable().getSelectedRow();
             int id = (int) ingredientManagementView.getIngredientManagementTable().getValueAt(rowSelected, 0);
+            
             //Truy xuất CSDL theo ID để lấy bản ghi
             Ingredient item = ingredientService.getById(id);
 
@@ -140,6 +141,7 @@ public class IngredientManagementController implements BaseController {
             item.setAvailable(ingredientManagementView.getIsAvailbleRadioButton().isSelected());
 
             ingredientService.update(item);
+            
             JOptionPane.showMessageDialog(null, "Thành Công");
             ingredientManagementView.getIngredientNameTextField().setText("");
             ingredientManagementView.getUnitTextField().setText("");
@@ -150,8 +152,11 @@ public class IngredientManagementController implements BaseController {
         } else if (actionType.equals("add")) // ADD
         {
             Ingredient newIngredient = new Ingredient();
+            // Lay du lieu tu Form
             String a = ingredientManagementView.getIngredientNameTextField().getText();
-            for (Ingredient item1 : ingredientList) {
+            
+            for (Ingredient item1 : ingredientList)
+            {
                 if (item1.getIngredientName().equalsIgnoreCase(a)) {
                     JOptionPane.showMessageDialog(null, "Nguyên liệu đã tồn tại");
                     return;
@@ -163,6 +168,7 @@ public class IngredientManagementController implements BaseController {
                     return;
                 }
             }
+            
             newIngredient.setIngredientName(a);
             newIngredient.setUnit(ingredientManagementView.getUnitTextField().getText());
             newIngredient.setAvailable(true);
