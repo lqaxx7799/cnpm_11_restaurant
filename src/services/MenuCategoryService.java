@@ -46,10 +46,10 @@ public class MenuCategoryService {
     }
 
     public ArrayList<String> getNameAll() {
-        try {
+       try {
             Connection connection = ConnectionFactory.getConnection();
             Statement stmt = connection.createStatement();
-            String query = "select category_name from menu_categories where is_available = 0";
+            String query = "select category_name from menu_categories where is_available = 1";
             ResultSet rs = stmt.executeQuery(query);
             ArrayList<String> list = new ArrayList<>();
             while (rs.next()) {

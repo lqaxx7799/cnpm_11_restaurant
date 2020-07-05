@@ -19,6 +19,10 @@ import services.ReceiptDetailService;
 import services.BillListService;
 import app.App;
 import java.awt.Dimension;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -40,8 +44,6 @@ public class OrderController implements BaseController{
         loadTable();
         menuCategoryService = new MenuCategoryService();
         menuItemService = new MenuItemService();
-        ArrayList<String> menuCategoryList = menuCategoryService.getNameAll();
-        orderView.getCbMenuCategory().setModel(new DefaultComboBoxModel<String>(menuCategoryList.toArray(new String[0])));
         billListService = new BillListService();
         receiptService = new ReceiptService();
         receiptDetailService = new ReceiptDetailService();
@@ -149,6 +151,21 @@ public class OrderController implements BaseController{
                 for (int i = model.getRowCount() - 1; i >= 0; i--) {
                     totalPaymentPrice += (Double)orderView.getjTable2().getValueAt(i, 3);
                 }
+                try {
+                    FileOutputStream outputStream = new FileOutputStream("E:\\Work\\CNPM\\cnpm_11_restaurant\\Bill.txt");
+                    OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-16");
+                    BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+                    bufferedWriter.write("Hoá đơn số: "+CurrentReceiptId);
+                    for(int i= 0;i <  model.getRowCount() ; i++){
+                        bufferedWriter.newLine();
+                        bufferedWriter.write(orderView.getjTable2().getValueAt(i,0).toString()+" "+orderView.getjTable2().getValueAt(i,1).toString()+" "+orderView.getjTable2().getValueAt(i,2).toString()+" "+orderView.getjTable2().getValueAt(i,3).toString());
+                    }
+                    bufferedWriter.newLine();
+                    bufferedWriter.write("Tổng: "+totalPaymentPrice);
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Receipt rc_temp = receiptService.getById(CurrentReceiptId);
                 rc_temp.setPaid(true);
                 rc_temp.setPaidTime(new Date());
@@ -223,6 +240,8 @@ public class OrderController implements BaseController{
     @Override
     public void loadData(){
         loadTable();
+        ArrayList<String> menuCategoryList = menuCategoryService.getNameAll();
+        orderView.getCbMenuCategory().setModel(new DefaultComboBoxModel<String>(menuCategoryList.toArray(new String[0])));
         orderView.getTxtQuantity().setText("");
         orderView.getCbMenuItem().setSelectedIndex(-1);
         orderView.getCbMenuCategory().setSelectedIndex(-1);
