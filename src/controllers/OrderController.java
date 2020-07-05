@@ -59,7 +59,7 @@ public class OrderController implements BaseController{
         ArrayList<String> menuItemList = new ArrayList<>();
         ArrayList<MenuItem> menuItem = menuItemService.getAll();
         for(MenuItem item : menuItem){
-            if(item.getMenuCategoryId() == slected){
+            if(item.getMenuCategoryId() == slected && item.isAvailable()){
                 menuItemList.add(item.getItemName());
             }
         }

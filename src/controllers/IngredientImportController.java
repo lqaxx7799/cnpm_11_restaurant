@@ -51,7 +51,9 @@ public class IngredientImportController implements BaseController {
         ArrayList<Ingredient> ingredientList = ingredientService.getAll();
         ArrayList<String> ingredientName = new ArrayList<>();
         for (Ingredient item : ingredientList) {
-            ingredientName.add(item.getIngredientName());
+            if (item.isAvailable()) {
+                ingredientName.add(item.getIngredientName());
+            }
         }
         ingredientImportView.getCbIngredientList().setModel(new DefaultComboBoxModel<String>(ingredientName.toArray(new String[0])));
         ingredientImportView.getTxtMessage().setText("");
@@ -81,13 +83,13 @@ public class IngredientImportController implements BaseController {
         int ingredientIndex = ingredientImportView.getCbIngredientList().getSelectedIndex();
         ArrayList<Ingredient> ingredientList = ingredientService.getAll();
         Ingredient ingredient = ingredientList.get(ingredientIndex);
-        
+
         String regex = "^[0-9]{1,}$";
 
         int ingredientID = ingredient.getId(); // day la id cua nguyen lieu duoc chon
 
         String amountString = ingredientImportView.getTxtAmount().getText();
-        if(amountString.equals("") || !amountString.matches(regex)){
+        if (amountString.equals("") || !amountString.matches(regex)) {
             JOptionPane.showMessageDialog(null, "Chưa nhập sốlượng hoặc nhập sai định dạng!");
             return;
         }
@@ -99,7 +101,7 @@ public class IngredientImportController implements BaseController {
         }
 
         String costString = ingredientImportView.getTxtCost().getText();
-        if(costString.equals("") || !costString.matches(regex)){
+        if (costString.equals("") || !costString.matches(regex)) {
             JOptionPane.showMessageDialog(null, "Chưa nhập thành tiền hoặc nhập sai định dạng!");
             return;
         }
