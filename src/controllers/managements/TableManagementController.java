@@ -39,7 +39,10 @@ public class TableManagementController implements BaseController {
 
     private void addTableHandler() {
         setButtonState(false);
-        setFormState(true);
+        tableManagementView.getTableNameTextField().setEnabled(true);
+        tableManagementView.getIsOccupiedRadioButton().setEnabled(false);
+        tableManagementView.getIsAvailableRadioButton().setEnabled(false);
+
         actionType = "add";
     }
 
@@ -55,6 +58,7 @@ public class TableManagementController implements BaseController {
         int id = (int) tableManagementView.getTableManagementTable().getValueAt(rowSelected, 0);
         tableManagementView.getTableNameTextField().setText(tableService.getById(id).getTableName());
         tableManagementView.getIsOccupiedRadioButton().setSelected(tableService.getById(id).isOccupied());
+        tableManagementView.getIsAvailableRadioButton().setSelected(tableService.getById(id).isAvailable());
         actionType = "edit";
     }
 
@@ -68,8 +72,7 @@ public class TableManagementController implements BaseController {
         setButtonState(false);
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(null, "Xóa bàn này?", "Thông báo", dialogButton);
-        if (dialogResult == JOptionPane.YES_OPTION)
-        {
+        if (dialogResult == JOptionPane.YES_OPTION) {
             int id = (int) tableManagementView.getTableManagementTable().getValueAt(rowSelected, 0);
             Table table = tableService.getById(id);
             table.setAvailable(false);
@@ -92,6 +95,12 @@ public class TableManagementController implements BaseController {
         if (actionType.equals("add")) {
             Table newTable = new Table();
             String tabelName = tableManagementView.getTableNameTextField().getText();
+            for (Table table : tableList) {
+                if (tabelName.equalsIgnoreCase(table.getTableName())) {
+                    JOptionPane.showMessageDialog(null, "Tên bàn đã tồn tại");
+                    return;
+                }
+            }
             newTable.setTableName(tabelName);
             boolean isOccupied = tableManagementView.getIsOccupiedRadioButton().isSelected();
             newTable.setOccupied(isOccupied);
@@ -115,15 +124,16 @@ public class TableManagementController implements BaseController {
                 JOptionPane.showMessageDialog(null, "Chưa nhập tên bàn");
                 return;
             }
-            for (Table table : tableList) {
-                if (tableNameTxt.equals(table.getTableName())) {
-                    JOptionPane.showMessageDialog(null, "Tên bàn đã tồn tại!");
-                    return;
-                }
-            }
+//            for (Table table : tableList) {
+//                if (tableNameTxt.equals(table.getTableName())) {
+//                    JOptionPane.showMessageDialog(null, "Tên bàn đã tồn tại!");
+//                    return;
+//                }
+//            }
             Table tbl = tableService.getById(id);
             tbl.setTableName(tableNameTxt);
             tbl.setOccupied(tableManagementView.getIsOccupiedRadioButton().isSelected());
+            tbl.setAvailable(tableManagementView.getIsAvailableRadioButton().isSelected());
             tableService.update(tbl);
             JOptionPane.showMessageDialog(null, "Thành Công");
             resetForm();
@@ -148,13 +158,14 @@ public class TableManagementController implements BaseController {
         }
         ArrayList<Table> tableList = tableService.getAll();
         for (Table item : tableList) {
-            if(item.isAvailable()){
-                Object[] rowData = new Object[]{
-                    item.getId(),
-                    item.getTableName(),
-                    item.isOccupied(),};
-                listModel.addRow(rowData);
-            }   
+            //    if(item.isAvailable()){
+            Object[] rowData = new Object[]{
+                item.getId(),
+                item.getTableName(),
+                item.isOccupied(),
+                item.isAvailable(),};
+            listModel.addRow(rowData);
+            //    }   
         }
         decorateTable();
         setButtonState(true);
@@ -172,11 +183,13 @@ public class TableManagementController implements BaseController {
     private void setFormState(boolean state) {
         tableManagementView.getTableNameTextField().setEnabled(state);
         tableManagementView.getIsOccupiedRadioButton().setEnabled(state);
+        tableManagementView.getIsAvailableRadioButton().setEnabled(state);
     }
 
     private void resetForm() {
         tableManagementView.getTableNameTextField().setText("");
         tableManagementView.getIsOccupiedRadioButton().setSelected(false);
+        tableManagementView.getIsAvailableRadioButton().setSelected(false);
     }
 
     public void decorateTable() {

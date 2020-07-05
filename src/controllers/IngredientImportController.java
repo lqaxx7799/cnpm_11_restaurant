@@ -37,7 +37,7 @@ public class IngredientImportController implements BaseController {
         ingredientService = new IngredientService();
         ingredientImportService = new IngredientImportService();
 
-        ingredientImportView.getCbIngredientList().addActionListener(al -> onIngredientChange());
+        ingredientImportView.getCbIngredientList().addActionListener(al -> onIngredientChange()); // Khi chon nguyen lieu trong combobox
         ingredientImportView.getNhapnlButton().addActionListener(al -> ingredientImportHandler());
     }
 
