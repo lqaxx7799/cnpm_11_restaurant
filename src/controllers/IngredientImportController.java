@@ -51,7 +51,9 @@ public class IngredientImportController implements BaseController {
         ArrayList<Ingredient> ingredientList = ingredientService.getAll();
         ArrayList<String> ingredientName = new ArrayList<>();
         for (Ingredient item : ingredientList) {
-            ingredientName.add(item.getIngredientName());
+            if(item.isAvailable()){
+                ingredientName.add(item.getIngredientName());
+            }
         }
         ingredientImportView.getCbIngredientList().setModel(new DefaultComboBoxModel<String>(ingredientName.toArray(new String[0])));
         ingredientImportView.getTxtMessage().setText("");
