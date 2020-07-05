@@ -39,22 +39,47 @@ public class BillListService {
         }
     }
     
-    public boolean checkExistBillByTableId(int tableId){
+    public int getReceiptIdByTableId(int tableId){
         try {
             Connection connection = ConnectionFactory.getConnection();
-            String query = "select * from receipts where receipts.is_paid = 0 and receipts.table_id = ? ";
+            String query = "select receipts.id from receipts where receipts.is_paid = 0 and receipts.table_id = ? ";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setInt(1,tableId);
             ResultSet rs = stmt.executeQuery();
+            int receiptId = 0;
             if(rs.next()){
-                return true;
+                receiptId = rs.getInt(1);
             }
             stmt.close();
             connection.close();
-            return false;
+            return receiptId;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return 0;
         } 
     }
+        
+    
+//    public boolean checkExistBillByTableId(int tableId){
+//        int count =0;
+//        try {
+//            Connection connection = ConnectionFactory.getConnection();
+//            String query = "select * from receipts where receipts.is_paid = 0 and receipts.table_id = ? ";
+//            PreparedStatement stmt = connection.prepareStatement(query);
+//            stmt.setInt(1,tableId);
+//            ResultSet rs = stmt.executeQuery();
+//            if(rs.next()){
+//                ++count;
+//            }
+//            stmt.close();
+//            connection.close();
+//            if(count>0)
+//                return true;
+//            else
+//                return false;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return false;
+//        } 
+//    }
 }

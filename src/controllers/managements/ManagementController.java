@@ -69,6 +69,12 @@ public class ManagementController implements BaseController {
             case 2:
                 tableManagementController.loadData();
                 break;
+            case 3:
+                menuItemManagementController.loadData();
+                break;
+            case 4:
+                menuCategoryManagementController.loadData();
+                break;
             default:
                 break;
         }
