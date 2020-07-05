@@ -55,20 +55,12 @@ public class SalaryReportController implements BaseController {
         salaryReportView.getLblStandardSalary().setText("");
         salaryReportView.getLblStandardTimekeeping().setText("");
         salaryReportView.getLblTime().setText("");
+        salaryReportView.getLblMinuteLate().setText("");
         salaryReportView.getPnlSalaryReport().setVisible(false);
     }
 
     private void checkSalary() {
         salaryReportView.getLblErrMessage().setText("");
-
-        ArrayList<SalaryInformation> salaryInformations = salaryInformationService.getByAccountId(App.currentAccount.getId());
-        SalaryInformation salaryInformation = null;
-        for (SalaryInformation si : salaryInformations) {
-            if (si.getToDate() == null) {
-                salaryInformation = si;
-                break;
-            }
-        }
 
         String monthString = salaryReportView.getTxtMonth().getText();
         String yearString = salaryReportView.getTxtYear().getText();
@@ -122,7 +114,8 @@ public class SalaryReportController implements BaseController {
             timekeepingModel.removeRow(i);
         }
 
-        int countActualTimekeeping = 0;
+        double countActualTimekeeping = 0;
+        long totalMinuteFee = 0;
         for (Date timeKey : timeKeys) {
             boolean isFound = false;
             for (Timekeeping timekeeping : timekeepings) {
@@ -131,16 +124,47 @@ public class SalaryReportController implements BaseController {
                 inTime.setTime(timekeeping.getInTime());
                 time.setTime(timeKey);
                 if (inTime.get(Calendar.DATE) == time.get(Calendar.DATE) && inTime.get(Calendar.MONTH) == time.get(Calendar.MONTH) && inTime.get(Calendar.YEAR) == time.get(Calendar.YEAR)) {
+                    Calendar expectedInTime = Calendar.getInstance();
+                    expectedInTime.setTime(timeKey);
+                    expectedInTime.set(Calendar.HOUR, 8);
+                    expectedInTime.set(Calendar.MINUTE, 30);
+                    expectedInTime.set(Calendar.SECOND, 0);
+                    expectedInTime.set(Calendar.AM_PM, Calendar.AM);
+
+                    Calendar expectedOutTime = Calendar.getInstance();
+                    expectedOutTime.setTime(timeKey);
+                    expectedOutTime.set(Calendar.HOUR, 6);
+                    expectedOutTime.set(Calendar.MINUTE, 0);
+                    expectedOutTime.set(Calendar.SECOND, 0);
+                    expectedOutTime.set(Calendar.AM_PM, Calendar.PM);
+
+                    long inDiff = inTime.getTime().getTime() - expectedInTime.getTime().getTime();
+                    long minuteInLate = inDiff < 0 ? 0 : inDiff / (60 * 1000) % 60;
+                    long minuteOutEarly = 0;
+                    if (timekeeping.getOutTime() != null) {
+                        Calendar outTime = Calendar.getInstance();
+                        outTime.setTime(timekeeping.getOutTime());
+                        long outDiff = expectedOutTime.getTime().getTime() - outTime.getTime().getTime();
+                        minuteOutEarly = outDiff < 0 ? 0 : outDiff / (60 * 1000) % 60;
+                    }
+                    totalMinuteFee += minuteInLate + minuteOutEarly;
+                    System.out.println(inDiff);
+                    System.out.println(dfDate.format(expectedInTime.getTime()) + " " + dfTime.format(expectedInTime.getTime()) + " " + dfDate.format(timekeeping.getInTime()) + " " + dfTime.format(timekeeping.getInTime()));
                     Object[] rowData = new Object[]{
                         dfDate.format(timeKey),
                         dfTime.format(timekeeping.getInTime()),
-                        dfTime.format(timekeeping.getOutTime()),
-                        0,
-                        0
+                        timekeeping.getOutTime() == null ? 0 : dfTime.format(timekeeping.getOutTime()),
+                        minuteInLate,
+                        minuteOutEarly
                     };
                     timekeepingModel.addRow(rowData);
                     isFound = true;
-                    countActualTimekeeping++;
+                    if (timekeeping.getOutTime() != null) {
+                        countActualTimekeeping += 1;
+                    } else {
+                        countActualTimekeeping += 0.5;
+                    }
+
                     break;
                 }
             }
@@ -157,13 +181,42 @@ public class SalaryReportController implements BaseController {
             }
         }
 
+        ArrayList<SalaryInformation> salaryInformations = salaryInformationService.getByAccountId(App.currentAccount.getId());
+        SalaryInformation salaryInformation = null;
+        for (SalaryInformation si : salaryInformations) {
+            Calendar salaryFromDate = Calendar.getInstance();
+            salaryFromDate.setTime(si.getFromDate());
+
+            boolean conditionFrom1 = year == salaryFromDate.get(Calendar.YEAR) && month > salaryFromDate.get(Calendar.MONTH);
+            boolean conditionFrom2 = year > salaryFromDate.get(Calendar.YEAR);
+            boolean conditionFrom = conditionFrom1 || conditionFrom2;
+
+            boolean conditionTo;
+            if (si.getToDate() == null) {
+                conditionTo = true;
+            } else {
+                Calendar salaryToDate = Calendar.getInstance();
+                salaryToDate.setTime(si.getToDate());
+                boolean conditionTo1 = year == salaryFromDate.get(Calendar.YEAR) && month < salaryFromDate.get(Calendar.MONTH) - 1;
+                boolean conditionTo2 = year < salaryFromDate.get(Calendar.YEAR);
+                conditionTo = conditionTo1 || conditionTo2;
+            }
+            if (conditionFrom && conditionTo) {
+                salaryInformation = si;
+                break;
+            }
+        }
+
         if (salaryInformation != null) {
             salaryReportView.getPnlSalaryReport().setVisible(true);
             salaryReportView.getLblTime().setText("Tháng " + month + "/" + year);
             salaryReportView.getLblStandardTimekeeping().setText(String.valueOf(timeKeys.size()));
             salaryReportView.getLblActualTimekeeping().setText(String.valueOf(countActualTimekeeping));
             salaryReportView.getLblStandardSalary().setText(CommonUltilities.formatCurrency(salaryInformation.getSalary()));
-            salaryReportView.getLblActualSalary().setText(CommonUltilities.formatCurrency(countActualTimekeeping / timeKeys.size()));
+            salaryReportView.getLblMinuteLate().setText(String.valueOf(totalMinuteFee));
+            double actualSalary = salaryInformation.getSalary() * countActualTimekeeping / timeKeys.size();
+            actualSalary -= totalMinuteFee < 30 ? 0 : (totalMinuteFee - 30) * 1000;
+            salaryReportView.getLblActualSalary().setText(CommonUltilities.formatCurrency(actualSalary));
         }
     }
 
