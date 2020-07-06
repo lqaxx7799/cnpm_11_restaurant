@@ -84,13 +84,20 @@ public class IngredientImportController implements BaseController {
             return;
         }
 
-        int ingredientIndex = ingredientImportView.getCbIngredientList().getSelectedIndex();
+//        int ingredientIndex = ingredientImportView.getCbIngredientList().getSelectedIndex();
+//        ArrayList<Ingredient> ingredientList = ingredientService.getAll();
+//        Ingredient ingredient = ingredientList.get(ingredientIndex);
+        int ingredientID = 0;
+        String ingredientName = ingredientImportView.getCbIngredientList().getSelectedItem().toString();
         ArrayList<Ingredient> ingredientList = ingredientService.getAll();
-        Ingredient ingredient = ingredientList.get(ingredientIndex);
+        for(Ingredient item: ingredientList){
+            if(item.getIngredientName().equalsIgnoreCase(ingredientName)){
+                ingredientID = item.getId();
+                break;
+            }
+        }
 
         String regex = "^[0-9]{1,}$";
-
-        int ingredientID = ingredient.getId(); // day la id cua nguyen lieu duoc chon
 
         String amountString = ingredientImportView.getTxtAmount().getText();
         if (amountString.equals("") || !amountString.matches(regex)) {

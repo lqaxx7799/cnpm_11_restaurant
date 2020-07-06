@@ -152,7 +152,7 @@ public class OrderController implements BaseController{
                     totalPaymentPrice += (Double)orderView.getjTable2().getValueAt(i, 3);
                 }
                 try {
-                    FileOutputStream outputStream = new FileOutputStream("E:\\Work\\CNPM\\cnpm_11_restaurant\\Bill.txt");
+                    FileOutputStream outputStream = new FileOutputStream("Bill.txt");
                     OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream, "UTF-16");
                     BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
                     bufferedWriter.write("Hoá đơn số: "+CurrentReceiptId);
